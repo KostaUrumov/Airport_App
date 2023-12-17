@@ -11,6 +11,8 @@ namespace Aiport_App_Structure.Models
         [MaxLength(DataConstraints.Passenger.NameMaxLength)]
         public string Name { get; set; } = null!;
 
-        
+        [Required]
+        [Range(DataConstraints.Passenger.MinAge, DataConstraints.Passenger.MaxAge)]
+        public int Age { get; set; }
     }
 }

@@ -31,6 +31,9 @@
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 150;
+
+            public const int MinAge = 0;
+            public const int MaxAge = 150;
         }
 
         public class Aicraft

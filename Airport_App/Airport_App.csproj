@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aiport_App_Structure\Aiport_App_Structure.csproj" />
+    <ProjectReference Include="..\Airport_App_Core\Airport_App_Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,6 +21,7 @@ namespace Aiport_App_Structure.Models
         [ForeignKey(nameof(ManufacturerId))]
         public Manufacturer Manufacturer { get; set; } = null!;
 
+        public ICollection<AircraftFlights> AircraftsFlights { get; set; } = new List<AircraftFlights>();
 
     }
 }
