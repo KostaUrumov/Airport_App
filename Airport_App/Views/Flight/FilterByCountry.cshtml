@@ -1,0 +1,30 @@
+﻿@model FilterByCountryModel
+@{
+    ViewData["Title"] = "Search flight..";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="" method="post">
+            <h3>Select country</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.CountryId" class="form-label">Departure from</label>
+                <select asp-for="@Model.CountryId" class="form-control">
+                    @foreach (var country in Model.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

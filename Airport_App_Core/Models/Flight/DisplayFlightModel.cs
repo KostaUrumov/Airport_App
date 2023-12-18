@@ -10,5 +10,8 @@
         public string DestinationAirport { get; set; } = null!;
         public string Price { get; set; } = null!;
 
+        public string StartDate { get; set; } = null!;
+
+        public string ArriveDate { get; set; } = null!;
     }
 }

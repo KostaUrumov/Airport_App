@@ -2,6 +2,7 @@
 using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.Flight;
 using Airport_App_Structure.Data;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airport_App_Core.Services
@@ -13,6 +14,47 @@ namespace Airport_App_Core.Services
         public FlightService(AirportDb _data)
         {
             data = _data;
+        }
+
+        public async Task<List<DisplayFlightModel>> AllByCountryDeparture(int countryId)
+        {
+            List<DisplayFlightModel> flights = data
+                .Flights
+                .Where(x => x.DepartureAirport.City.Country.Id == countryId)
+                .Select(x => new DisplayFlightModel
+                {
+                    DepartureCity = x.DepartureAirport.City.Name,
+                    DepartureAirport = x.DepartureAirport.Name,
+                    DestinationAirport = x.ArrivalAirport.Name,
+                    DestinationCity = x.ArrivalAirport.City.Name,
+                    Price = x.Price.ToString(),
+                    ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
+                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+
+                })
+                .ToList();
+            return flights;
+        }
+
+        public async Task<List<DisplayFlightModel>> FilterByDepartureAirport(int airportId)
+        {
+            List<DisplayFlightModel> flights = data
+                .Flights
+                .Where(x=> x.DepartureAirportId == airportId)
+                .Select(x => new DisplayFlightModel
+                {
+                    DepartureCity = x.DepartureAirport.City.Name,
+                    DepartureAirport = x.DepartureAirport.Name,
+                    DestinationAirport = x.ArrivalAirport.Name,
+                    DestinationCity = x.ArrivalAirport.City.Name,
+                    Price = x.Price.ToString(),
+                    ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
+                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+
+                })
+                .ToList();
+
+            return flights;
         }
 
         public async Task<IEnumerable<City>> GetAllCities()
@@ -32,8 +74,10 @@ namespace Airport_App_Core.Services
                     DepartureAirport = x.DepartureAirport.Name,
                     DestinationAirport = x.ArrivalAirport.Name,
                     DestinationCity = x.ArrivalAirport.City.Name,
-                    Price = x.Price.ToString()
-                    
+                    Price = x.Price.ToString(),
+                    ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
+                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+
                 })
                 .ToList();
 
