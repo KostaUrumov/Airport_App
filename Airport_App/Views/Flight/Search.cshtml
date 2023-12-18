@@ -1,0 +1,43 @@
+﻿@model SearchFlightModel
+@{
+    ViewData["Title"] = "Search flight";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="" method="post">
+            <h3>Search for flight</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.DepartureCityId" class="form-label">Departure</label>
+                <select asp-for="@Model.DepartureCityId" class="form-control">
+                    @foreach (var city in Model.DepartureCity)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="DepartureCityId" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="@Model.ArrivalCityId" class="form-label">Arrive</label>
+                <select asp-for="@Model.ArrivalCityId" class="form-control">
+                    @foreach (var city in Model.ArrivalCity)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ArrivalCityId" class="text-danger"></span>
+            </div>
+           
+            
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

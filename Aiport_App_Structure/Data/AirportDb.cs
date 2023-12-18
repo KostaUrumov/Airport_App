@@ -1,6 +1,8 @@
 ﻿using Aiport_App_Structure.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.SqlServer.Server;
+using System.Globalization;
 namespace Airport_App_Structure.Data
 {
     public class AirportDb : IdentityDbContext
@@ -60,8 +62,8 @@ namespace Airport_App_Structure.Data
 
             builder.Entity<Flight>()
                 .HasData(
-                new Flight { Id = 1, FlightNumber = "BO78P0", DepartureAirportId = 1, ArrivalAirportId = 3, AircraftId = 2, TotalTickets = 164, Price = 87.21M },
-                new Flight { Id = 2, FlightNumber = "LAU781", DepartureAirportId = 1, ArrivalAirportId = 2, AircraftId = 1, TotalTickets = 251, Price = 887.21M }
+                new Flight { Id = 1, FlightNumber = "BO78P0", DepartureAirportId = 1, ArrivalAirportId = 3, AircraftId = 2, TotalTickets = 164, Price = 87.21M, DepartureTime = new DateTime(2024, 1, 12, 8, 30, 52), ArivalTime = new DateTime(2024, 1, 12, 11, 3, 52) },
+                new Flight { Id = 2, FlightNumber = "LAU781", DepartureAirportId = 1, ArrivalAirportId = 2, AircraftId = 1, TotalTickets = 251, Price = 887.21M, DepartureTime =  new DateTime(2024, 1, 12, 8, 30, 52), ArivalTime = new DateTime(2024, 1, 13, 4, 22, 52) }
                 );
 
 

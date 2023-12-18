@@ -36,6 +36,12 @@ namespace Aiport_App_Structure.Models
         public int TotalTickets { get; set; }
 
         [Required]
+        public DateTime DepartureTime { get; set; }
+
+        [Required]
+        public DateTime ArivalTime { get; set; }
+
+        [Required]
         [Precision(18,2)]
         public decimal Price { get; set; }
 
