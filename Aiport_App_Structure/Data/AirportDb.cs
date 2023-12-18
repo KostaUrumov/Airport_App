@@ -66,6 +66,12 @@ namespace Airport_App_Structure.Data
                 new Flight { Id = 2, FlightNumber = "LAU781", DepartureAirportId = 1, ArrivalAirportId = 2, AircraftId = 1, TotalTickets = 251, Price = 887.21M, DepartureTime =  new DateTime(2024, 1, 12, 8, 30, 52), ArivalTime = new DateTime(2024, 1, 13, 4, 22, 52) }
                 );
 
+            builder.Entity<AircraftFlights>()
+                .HasData(
+                new AircraftFlights {FlightId = 1, AircraftId = 2 },
+                new AircraftFlights { FlightId = 2, AircraftId = 1 }
+                );
+
 
 
             base.OnModelCreating(builder);

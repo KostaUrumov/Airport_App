@@ -1,6 +1,5 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.Flight;
-using Airport_App_Core.Services;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Mvc;
 

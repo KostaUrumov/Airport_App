@@ -1,0 +1,30 @@
+﻿@model SearchAirplaneModel
+@{
+    ViewData["Title"] = "Search Airplane";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="" method="post">
+            <h3>Select model</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="mb-3">
+                <label asp-for="@Model.AircraftId" class="form-label">Airplane Model</label>
+                <select asp-for="@Model.AircraftId" class="form-control">
+                    @foreach (var airplane in Model.Aircrafts)
+                    {
+                        <option value="@airplane.Id">@airplane.Model </option>
+                    }
+                </select>
+                <span asp-validation-for="AircraftId" class="text-danger"></span>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

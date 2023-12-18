@@ -1,0 +1,87 @@
+﻿@model List<DisplayAirplaneFlightsModel>
+@{
+    ViewData["Title"] = "Result";
+}
+
+<div class="text-center">
+    <h3>Fligths</h3>
+</div>
+@if (Model.Count == 0)
+{
+    <div class="text-center">
+        <p></p>
+        <p></p>
+        <p></p>
+        <h5>Nothing found</h5>
+        <a class="" asp-area="" asp-controller="Flight" asp-action="Search">Search for flight</a>
+        <p></p>
+        <p></p>
+        <a class="" asp-area="" asp-controller="Flight" asp-action="Filter">Filter flights</a>
+
+    </div>
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Model</th>
+            </tr>
+        </thead>
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            int number = @i + 1;
+            <tbody>
+                <tr>
+                    <td>@number</td>
+                    <td>@Model[i].Manufacturer</td>
+                    <td>@Model[i].Model.ToString()</td>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Departure City</th>
+                                <th scope="col">Departure Airport</th>
+                                <th scope="col">Arrival city</th>
+                                <th scope="col">Arrival Airport</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Departure</th>
+                                <th scope="col">Arrive</th>
+                            </tr>
+                        </thead>
+                        @for(int j = 0; j< Model[i].Flights.Count; j ++)
+                        {
+                        <tbody>
+                                <tr>
+                                    <td>@number</td>
+                                    <td>@Model[i].Flights[j].DepartureCity</td>
+                                    <td>@Model[i].Flights[j].DepartureAirport.ToString()</td>
+                                    <td>@Model[i].Flights[j].DestinationCity</td>
+                                    <td>@Model[i].Flights[j].DestinationAirport.ToString()</td>
+                                    <td>@Model[i].Flights[j].Price $</td>
+                                    <td>@Model[i].Flights[j].StartDate</td>
+                                    <td>@Model[i].Flights[j].ArriveDate</td>
+                                   </tr>
+                        </tbody>
+                        }
+                    </table>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+
+
+
+
+
+
+
+
+
+
