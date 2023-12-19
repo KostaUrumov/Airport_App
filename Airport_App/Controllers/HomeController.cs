@@ -1,6 +1,5 @@
 using Airport_App_Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace Airport_App.Controllers
 {

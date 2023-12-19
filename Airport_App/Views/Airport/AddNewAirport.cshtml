@@ -1,0 +1,53 @@
+﻿@model AddNewAirportModel
+@{
+    ViewData["Title"] = "Add new airplane";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="" method="post">
+            <h3 class="text-center">@ViewBag.title</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="mb-3">
+                <label asp-for="@Model.CityId" class="form-label"> Select City</label>
+                <select asp-for="@Model.CityId" class="form-control">
+                    @foreach (var airport in Model.Cityies)
+                    {
+                        <option value="@airport.Id">@airport.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+
+            <p></p>
+            <p></p>
+
+            <div class="form-floating">
+                <input asp-for="@Model.Name" class="form-control" autocomplete="model" aria-required="true" />
+                <label asp-for="@Model.Name"></label>
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+
+            <p></p>
+            <p></p>
+
+            <div class="form-floating">
+                <input asp-for="@Model.AirportCode" class="form-control" autocomplete="model" aria-required="true" />
+                <label asp-for="@Model.AirportCode"></label>
+                <span asp-validation-for="@Model.AirportCode" class="text-danger"></span>
+            </div>
+
+
+            <p></p>
+            <p></p>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

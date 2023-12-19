@@ -34,8 +34,6 @@ namespace Airport_App_Core.Services
             return await data.Aircrafts.OrderBy(x=>x.Model).ToListAsync();
         }
 
-        
-
         public async Task<List<DisplayAirplaneModel>> GetAllPLanes()
         {
             List<DisplayAirplaneModel> result = await data

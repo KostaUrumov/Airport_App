@@ -10,20 +10,22 @@ namespace Airport_App.Controllers
         private readonly AirportDb data;
         private readonly IFlightsService flightsService;
         private readonly ICountryService countryService;
-        
+        private readonly ICityService cityService;
         private readonly IAirportService airportService;
 
         public FlightController(
             AirportDb _data,
             IFlightsService _flightsService,
             ICountryService _countryService,
-            IAirportService _airportService
+            IAirportService _airportService,
+            ICityService _cityService
             )
         {
             data = _data;
             flightsService = _flightsService;
             countryService = _countryService;
             airportService = _airportService;
+            cityService = _cityService;
         }
 
         public async Task<IActionResult> LastFive()
@@ -37,8 +39,8 @@ namespace Airport_App.Controllers
         {
             SearchFlightModel model = new SearchFlightModel()
             {
-                DepartureCity = await flightsService.GetAllCities(),
-                ArrivalCity = await flightsService.GetAllCities()
+                DepartureCity = await cityService.GetAllCities(),
+                ArrivalCity = await cityService.GetAllCities()
             };
             return View(model);
         }

@@ -18,7 +18,7 @@ namespace Airport_App_Core.Services
 
         public async Task<List<DisplayFlightModel>> AllByCountryDeparture(int countryId)
         {
-            List<DisplayFlightModel> flights = data
+            List<DisplayFlightModel> flights = await data
                 .Flights
                 .Where(x => x.DepartureAirport.City.Country.Id == countryId)
                 .Select(x => new DisplayFlightModel
@@ -32,13 +32,13 @@ namespace Airport_App_Core.Services
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
 
                 })
-                .ToList();
+                .ToListAsync();
             return flights;
         }
 
         public async Task<List<DisplayFlightModel>> FilterByDepartureAirport(int airportId)
         {
-            List<DisplayFlightModel> flights = data
+            List<DisplayFlightModel> flights = await data
                 .Flights
                 .Where(x=> x.DepartureAirportId == airportId)
                 .Select(x => new DisplayFlightModel
@@ -52,19 +52,14 @@ namespace Airport_App_Core.Services
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
 
                 })
-                .ToList();
+                .ToListAsync();
 
             return flights;
         }
 
-        public async Task<IEnumerable<City>> GetAllCities()
-        {
-            return await data.Cities.OrderBy(x=>x.Name).ToListAsync();
-        }
-
         public async Task<List<DisplayFlightModel>> SearchFlight(SearchFlightModel model)
         {
-            List<DisplayFlightModel> flight = data
+            List<DisplayFlightModel> flight = await data
                 .Flights
                 .Where(x => x.DepartureAirport.City.Id == model.DepartureCityId
                            && x.ArrivalAirport.City.Id == model.ArrivalCityId)
@@ -79,7 +74,7 @@ namespace Airport_App_Core.Services
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
 
                 })
-                .ToList();
+                .ToListAsync();
 
             return flight;
         }

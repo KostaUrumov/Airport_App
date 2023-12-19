@@ -1,5 +1,6 @@
 ﻿using Aiport_App_Structure.Models;
 using Airport_App_Core.Contracts;
+using Airport_App_Core.Models.AirportModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,48 @@ namespace Airport_App_Core.Services
         public async Task<IEnumerable<Airport>> AddAllAirports()
         {
             return await data.Airports.OrderBy(x=>x.Name).ToListAsync();
+        }
+
+        public async Task AddNewAirport(AddNewAirportModel port)
+        {
+            Airport airport = new Airport()
+            {
+                Name = port.Name,
+                AirportCode = port.AirportCode,
+                CityId = port.CityId,
+            };
+            data.Airports.Add(airport);
+            await data.SaveChangesAsync();
+        }
+
+        public bool CheckIfExist(AddNewAirportModel port)
+        {
+            var find =  data.Airports
+                 .FirstOrDefault(x => x.Name == port.Name);
+            if (find != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<List<DisplayAirportModel>> GetAllAirports()
+        {
+            List<DisplayAirportModel> ports = await data
+                .Airports
+                .Select(a => new DisplayAirportModel
+                {
+                    Name = a.Name,
+                    City = a.City.Name,
+                    Country = a.City.Country.Name,
+                    Code = a.AirportCode
+                })
+                .OrderBy(x=> x.Country)
+                .ThenBy(x=>x.City)
+                .ToListAsync();
+
+            return ports;
         }
     }
 }
