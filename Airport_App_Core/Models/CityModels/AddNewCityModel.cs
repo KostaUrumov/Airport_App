@@ -16,6 +16,6 @@ namespace Airport_App_Core.Models.CityModels
         [Required]
         public int CountryId { get; set; }
         
-        public IEnumerable<Country>? Countries { get; set; }
+        public IEnumerable<Country> Countries { get; set; }= new List<Country>();
     }
 }
