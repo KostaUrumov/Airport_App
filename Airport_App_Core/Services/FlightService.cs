@@ -1,6 +1,6 @@
 ﻿using Aiport_App_Structure.Models;
 using Airport_App_Core.Contracts;
-using Airport_App_Core.Models.Flight;
+using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;

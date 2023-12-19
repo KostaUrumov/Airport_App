@@ -1,0 +1,58 @@
+﻿@model List<DisplayAirplaneModel>
+@{
+    ViewData["Title"] = "All planes";
+}
+
+<div class="text-center">
+    <h3>Airplanes</h3>
+</div>
+@if (Model.Count == 0)
+{
+    <div class="text-center">
+        <p></p>
+        <p></p>
+        <p></p>
+        <h5>No planes in our data</h5>
+        <a class="" asp-area="" asp-controller="Airplane" asp-action="AddPlane">Add new plane</a>
+        <p></p>
+        <p></p>
+
+    </div>
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Model</th>
+                <th scope="col">Capacity</th>
+            </tr>
+        </thead>
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            int number = @i + 1;
+            <tbody>
+                <tr>
+                    <td>@number</td>
+                    <td>@Model[i].Manufacturer</td>
+                    <td>@Model[i].Model</td>
+                    <td>@Model[i].Seats</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 ﻿using Aiport_App_Structure.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Airport_App_Core.Models.Flight
+namespace Airport_App_Core.Models.FlightModels
 {
     public class SearchFlightModel
     {

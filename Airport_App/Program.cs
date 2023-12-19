@@ -14,9 +14,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<IFlightsService, FlightService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
-builder.Services.AddScoped<IContinentService, ContinentService>();
 builder.Services.AddScoped<IAirportService, AirportService>();
 builder.Services.AddScoped<IAirplaneService, AirplaneService>();
+builder.Services.AddScoped<IManufacturerServce, ManufacturerServce>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AirportDb>();

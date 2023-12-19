@@ -1,6 +1,6 @@
-﻿using Airport_App_Core.Models.Flight;
+﻿using Airport_App_Core.Models.FlightModels;
 
-namespace Airport_App_Core.Models.Airplane
+namespace Airport_App_Core.Models.AirplaneModels
 {
     public class DisplayAirplaneFlightsModel
     {

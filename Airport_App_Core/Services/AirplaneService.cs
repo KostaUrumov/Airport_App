@@ -1,7 +1,7 @@
 ﻿using Aiport_App_Structure.Models;
 using Airport_App_Core.Contracts;
-using Airport_App_Core.Models.Airplane;
-using Airport_App_Core.Models.Flight;
+using Airport_App_Core.Models.AirplaneModels;
+using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,14 +16,40 @@ namespace Airport_App_Core.Services
             data = _data;
         }
 
+        public async Task AddAircraft(AddNewPlane plane)
+        {
+            Aircraft aircraft = new Aircraft()
+            {
+                Capacity = plane.Capacity,
+                Model = plane.Model,
+                ManufacturerId = plane.ManufacturerId
+            };
+
+            data.AddRange(aircraft);
+            await data.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Aircraft>> AddAllAircrafts()
         {
             return await data.Aircrafts.OrderBy(x=>x.Model).ToListAsync();
         }
 
-        public async Task<IEnumerable<Manufacturer>> GetAllCompanies()
+        
+
+        public async Task<List<DisplayAirplaneModel>> GetAllPLanes()
         {
-            return await data.Manufacturers.OrderBy(x=>x.Name).ToListAsync();
+            List<DisplayAirplaneModel> result = await data
+                .Aircrafts
+                .Select(x=> new DisplayAirplaneModel
+                {
+                    Manufacturer = x.Manufacturer.Name,
+                    Model = x.Model,
+                    Seats = x.Capacity
+                })
+                .OrderBy(p=> p.Manufacturer)
+                .ThenByDescending(p=> p.Seats)
+                .ToListAsync();
+            return result;
         }
 
         public async Task<List<DisplayAirplaneFlightsModel>> GetFlightsPerPlane(int id)

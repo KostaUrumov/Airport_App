@@ -1,5 +1,5 @@
 ﻿using Airport_App_Core.Contracts;
-using Airport_App_Core.Models.Flight;
+using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,14 +10,13 @@ namespace Airport_App.Controllers
         private readonly AirportDb data;
         private readonly IFlightsService flightsService;
         private readonly ICountryService countryService;
-        private readonly IContinentService continentService;
+        
         private readonly IAirportService airportService;
 
         public FlightController(
             AirportDb _data,
             IFlightsService _flightsService,
             ICountryService _countryService,
-            IContinentService continentService,
             IAirportService _airportService
             )
         {

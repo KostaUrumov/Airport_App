@@ -1,5 +1,5 @@
 ﻿using Aiport_App_Structure.Models;
-using Airport_App_Core.Models.Flight;
+using Airport_App_Core.Models.FlightModels;
 
 namespace Airport_App_Core.Contracts
 {

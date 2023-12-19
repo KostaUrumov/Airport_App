@@ -1,4 +1,4 @@
-﻿namespace Airport_App_Core.Models.Flight
+﻿namespace Airport_App_Core.Models.FlightModels
 {
     public class DisplayFlightModel
     {
