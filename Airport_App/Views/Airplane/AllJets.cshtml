@@ -29,6 +29,7 @@ else
                 <th scope="col">Manufacturer</th>
                 <th scope="col">Model</th>
                 <th scope="col">Capacity</th>
+                <th scope="col">Edit</th>
             </tr>
         </thead>
 
@@ -41,18 +42,14 @@ else
                     <td>@Model[i].Manufacturer</td>
                     <td>@Model[i].Model</td>
                     <td>@Model[i].Seats</td>
+                    <td>
+                        <a asp-controller="Airplane" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn btn-warning">Edit</a>
+                    </td>
+                    
                 </tr>
             </tbody>
         }
+            
     </table>
+    
 }
-
-
-
-
-
-
-
-
-
-

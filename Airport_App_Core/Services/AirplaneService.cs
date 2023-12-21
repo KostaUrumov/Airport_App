@@ -34,6 +34,22 @@ namespace Airport_App_Core.Services
             return await data.Aircrafts.OrderBy(x=>x.Model).ToListAsync();
         }
 
+        public async Task<AddNewPlane> FindJet(int id)
+        {
+            AddNewPlane[] result = await data
+                .Aircrafts
+                .Where(a => a.Id == id)
+                .Select(a => new AddNewPlane
+                {
+                    Capacity = a.Capacity,
+                    ManufacturerId = a.ManufacturerId,
+                    Model = a.Model
+                })
+                .ToArrayAsync();
+
+            return result[0];
+        }
+
         public async Task<List<DisplayAirplaneModel>> GetAllPLanes()
         {
             List<DisplayAirplaneModel> result = await data
@@ -42,7 +58,8 @@ namespace Airport_App_Core.Services
                 {
                     Manufacturer = x.Manufacturer.Name,
                     Model = x.Model,
-                    Seats = x.Capacity
+                    Seats = x.Capacity,
+                    Id = x.Id
                 })
                 .OrderBy(p=> p.Manufacturer)
                 .ThenByDescending(p=> p.Seats)

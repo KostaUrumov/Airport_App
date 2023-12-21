@@ -67,5 +67,11 @@ namespace Airport_App.Controllers
         {
             return View(await airplaneService.GetAllPLanes());
         }
+
+        public async Task<IActionResult> Edit (int id)
+        {
+            var plane = await airplaneService.FindJet(id);
+            return RedirectToAction(nameof(AddPLane), plane);
+        }
     }
 }

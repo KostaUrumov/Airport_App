@@ -25,5 +25,9 @@ namespace Airport_App.Controllers
             return View();
         }
 
+        public IActionResult EditData()
+        {
+            return View();
+        }
     }
 }
