@@ -1,6 +1,7 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.AirplaneModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Airport_App.Controllers
 {
@@ -68,10 +69,25 @@ namespace Airport_App.Controllers
             return View(await airplaneService.GetAllPLanes());
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit (int id)
         {
             var plane = await airplaneService.FindJet(id);
-            return RedirectToAction(nameof(AddPLane), plane);
+            plane.Manufacturers = await manufacturerServce.GetAllCompanies();
+            return View(plane);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddNewPlane plane)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(AllJets));
+            }
+            await airplaneService.SaveChangesAsync(plane);
+            return RedirectToAction(nameof(AllJets));
+        }
+
+
     }
 }

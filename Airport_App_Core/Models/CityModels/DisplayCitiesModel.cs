@@ -4,6 +4,7 @@ namespace Airport_App_Core.Models.CityModels
 {
     public class DisplayCitiesModel
     {
+        public int Id { get; set; }
         public string Country { get; set; } = null!;
 
         public string CityName { get; set; } = null!;

@@ -34,7 +34,8 @@ namespace Airport_App_Core.Services
                 {
                     CityName = x.Name,
                     Country = x.Country.Name,
-                    Continent = x.Country.Continent.ToString()
+                    Continent = x.Country.Continent.ToString(),
+                    Id = x.Id
                 })
                 .OrderBy(s => s.Country)
                 .ThenBy(s => s.CityName)
@@ -58,9 +59,33 @@ namespace Airport_App_Core.Services
                 
         }
 
+        public async Task<AddNewCityModel> FindCity(int id)
+        {
+            List<AddNewCityModel> res = await data
+                .Cities
+                .Where(c=>c.Id == id)
+                .Select(a=> new AddNewCityModel
+                {
+                    Name = a.Name,
+                    CountryId = a.CountryId,
+                    Id = a.Id
+                })
+                .ToListAsync();
+            return res[0];
+        }
+
         public async Task<IEnumerable<City>> GetAllCities()
         {
             return await data.Cities.OrderBy(x => x.Name).ToListAsync();
+        }
+
+        public async Task SaveChangesAsync(AddNewCityModel model)
+        {
+            var oldCity = await data.Cities.FirstAsync(c => c.Id == model.Id);
+            oldCity.Name = model.Name;
+            oldCity.CountryId = model.CountryId;
+
+            await data.SaveChangesAsync();
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Airport_App_Core.Models.CompanyModels
 {
     public class AddNewCompanyModel
     {
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(DataConstraints.Manufacturer.NameMaxLength)]
         [MinLength(DataConstraints.Manufacturer.NameMinLength)]

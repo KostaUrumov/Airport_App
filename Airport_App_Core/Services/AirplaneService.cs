@@ -43,7 +43,8 @@ namespace Airport_App_Core.Services
                 {
                     Capacity = a.Capacity,
                     ManufacturerId = a.ManufacturerId,
-                    Model = a.Model
+                    Model = a.Model,
+                    Id = a.Id
                 })
                 .ToArrayAsync();
 
@@ -94,6 +95,15 @@ namespace Airport_App_Core.Services
                 return result;
                 
         }
-        
+
+        public async Task SaveChangesAsync(AddNewPlane plane)
+        {
+            var oldPlane = data.Aircrafts.First(x => x.Id == plane.Id);
+            oldPlane.Capacity = plane.Capacity;
+            oldPlane.ManufacturerId = plane.ManufacturerId;
+            oldPlane.Model = plane.Model;
+
+            await data.SaveChangesAsync();
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Airport_App_Core.Contracts
         bool CheckIfExist(AddNewCityModel city);
         Task AddNewCity(AddNewCityModel city);
         Task<List<DisplayCitiesModel>> AllCities();
-
+        Task<AddNewCityModel> FindCity(int id);
+        Task SaveChangesAsync(AddNewCityModel model);
     }
 }

@@ -7,6 +7,7 @@ namespace Airport_App_Core.Models.CityModels
 {
     public class AddNewCityModel
     {
+        public int Id { get; set; }
         [Required]
         [MaxLength(DataConstraints.City.NameMaxLength)]
         [MinLength(DataConstraints.City.NameMinLength)]

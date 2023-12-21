@@ -44,6 +44,21 @@ namespace Airport_App_Core.Services
             return false;
         }
 
+        public async Task<AddNewAirportModel> FindAirport(int id)
+        {
+            AddNewAirportModel[] list = await data
+                .Airports
+                .Where(p => p.Id == id)
+                .Select(a => new AddNewAirportModel
+                {
+                    AirportCode = a.AirportCode,
+                    Name = a.Name,
+                    Id = a.Id
+                })
+                .ToArrayAsync();
+            return list[0];
+        }
+
         public async Task<List<DisplayAirportModel>> GetAllAirports()
         {
             List<DisplayAirportModel> ports = await data
@@ -53,13 +68,23 @@ namespace Airport_App_Core.Services
                     Name = a.Name,
                     City = a.City.Name,
                     Country = a.City.Country.Name,
-                    Code = a.AirportCode
+                    Code = a.AirportCode,
+                    Id = a.Id
                 })
                 .OrderBy(x=> x.Country)
                 .ThenBy(x=>x.City)
                 .ToListAsync();
 
             return ports;
+        }
+
+        public async Task SaveChangesAsync(AddNewAirportModel port)
+        {
+            var airport = data.Airports.First(x => x.Id == port.Id);
+            airport.CityId = port.CityId;
+            airport.AirportCode = port.AirportCode;
+            airport.Name = port.Name;
+            await data.SaveChangesAsync();
         }
     }
 }

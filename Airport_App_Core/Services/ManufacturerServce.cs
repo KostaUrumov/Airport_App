@@ -41,6 +41,17 @@ namespace Airport_App_Core.Services
              
         }
 
+        public async Task<AddNewCompanyModel> FindCompany(int id)
+        {
+            AddNewCompanyModel model = new AddNewCompanyModel();
+            var findModel = await data.Manufacturers.FirstAsync(x => x.Id == id);
+            model.CountryId = findModel.CountryId;
+            model.Name = findModel.Name;
+            model.Id = findModel.Id;
+
+            return model;
+        }
+
         public async Task<IEnumerable<Manufacturer>> GetAllCompanies()
         {
             return await data.Manufacturers.OrderBy(x => x.Name).ToListAsync();
@@ -53,12 +64,22 @@ namespace Airport_App_Core.Services
                 .Select(m => new DisplayCompaniesModel
                 {
                     Origin = m.Country.Name,
-                    Name = m.Name
+                    Name = m.Name,
+                    Id = m.Id
                 })
                 .OrderBy(x => x.Name)
                 .ToListAsync();
 
             return result;
+        }
+
+        public async Task SaveChangesAsync(AddNewCompanyModel company)
+        {
+            var oldCompany = await data.Manufacturers.FirstAsync(x => x.Id == company.Id);
+            oldCompany.CountryId = company.CountryId;
+            oldCompany.Name = company.Name;
+
+            await data.SaveChangesAsync();
         }
     }
 }

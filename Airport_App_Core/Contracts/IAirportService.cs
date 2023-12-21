@@ -9,5 +9,7 @@ namespace Airport_App_Core.Contracts
         public bool CheckIfExist(AddNewAirportModel port);
         Task AddNewAirport(AddNewAirportModel port);
         Task<List<DisplayAirportModel>> GetAllAirports();
+        Task<AddNewAirportModel> FindAirport(int id);
+        Task SaveChangesAsync(AddNewAirportModel port);
     }
 }

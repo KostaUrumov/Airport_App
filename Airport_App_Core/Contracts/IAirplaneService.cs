@@ -10,6 +10,7 @@ namespace Airport_App_Core.Contracts
         Task AddAircraft(AddNewPlane plane);
         Task<List<DisplayAirplaneModel>> GetAllPLanes();
         Task<AddNewPlane> FindJet(int id);
+        Task SaveChangesAsync(AddNewPlane plane);
 
     }
 }

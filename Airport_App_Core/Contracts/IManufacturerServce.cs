@@ -9,5 +9,7 @@ namespace Airport_App_Core.Contracts
         public bool CheckIfExist(AddNewCompanyModel company);
         Task AddNewManufacturer(AddNewCompanyModel company);
         Task<List<DisplayCompaniesModel>> ReturnAllManufacturers();
+        Task<AddNewCompanyModel> FindCompany(int id);
+        Task SaveChangesAsync(AddNewCompanyModel company);
     }
 }

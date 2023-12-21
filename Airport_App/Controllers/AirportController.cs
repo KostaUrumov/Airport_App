@@ -48,5 +48,26 @@ namespace Airport_App.Controllers
         {
             return View(await airportService.GetAllAirports());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var airport = await airportService.FindAirport(id);
+            airport.Cityies = await cityService.GetAllCities();
+            return View(airport);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddNewAirportModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(AllAirports));
+            }
+
+            await airportService.SaveChangesAsync(model);
+            return RedirectToAction(nameof(AllAirports));
+        }
+
     }
 }

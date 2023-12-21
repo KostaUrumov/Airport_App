@@ -49,5 +49,23 @@ namespace Airport_App.Controllers
         {
             return View(await manufacturerServce.ReturnAllManufacturers());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit (int id)
+        {
+            var company = await manufacturerServce.FindCompany(id);
+            company.Countries = await countryService.AddAllCountries();
+            return View(company);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddNewCompanyModel company)
+        {
+            await manufacturerServce.SaveChangesAsync(company);
+            return RedirectToAction(nameof(AllCompanies));
+        }
+
+
     }
 }

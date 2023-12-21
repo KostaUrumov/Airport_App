@@ -7,6 +7,7 @@ namespace Airport_App_Core.Models.AirplaneModels
 {
     public class AddNewPlane
     {
+        public int Id { get; set; }
         [Required]
         [MaxLength(DataConstraints.Aicraft.ModelMaxLength)]
         [MinLength(DataConstraints.Aicraft.ModelMinLength)]
