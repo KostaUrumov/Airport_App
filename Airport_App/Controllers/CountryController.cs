@@ -67,5 +67,11 @@ namespace Airport_App.Controllers
             await countryService.SaveChangesAsync(model);
             return RedirectToAction(nameof(AllCountries));
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await countryService.Delete(id);
+            return RedirectToAction(nameof(AllCountries));
+        }
     }
 }

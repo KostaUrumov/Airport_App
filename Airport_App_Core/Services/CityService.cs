@@ -2,6 +2,7 @@
 using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.CityModels;
 using Airport_App_Structure.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airport_App_Core.Services
@@ -58,6 +59,20 @@ namespace Airport_App_Core.Services
             return false;
                 
         }
+
+        public async Task Delete(int id)
+        {
+            var findCity = await data.Cities.FirstAsync(c => c.Id == id);
+            var airport = await data.Airports.FirstOrDefaultAsync(x => x.CityId == findCity.Id);
+            if (airport != null)
+            {
+                return;
+            }
+
+            data.Remove(findCity);
+            await data.SaveChangesAsync();
+        }
+       
 
         public async Task<AddNewCityModel> FindCity(int id)
         {

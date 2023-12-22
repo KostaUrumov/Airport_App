@@ -28,7 +28,8 @@ else
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Origin</th>
-                <th scope="col">Origin</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
 
@@ -42,6 +43,9 @@ else
                     <td>@Model[i].Origin</td>
                     <td>
                         <a asp-controller="Company" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn btn-warning">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Company" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

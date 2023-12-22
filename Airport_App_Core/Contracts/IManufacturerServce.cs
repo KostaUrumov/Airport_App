@@ -11,5 +11,6 @@ namespace Airport_App_Core.Contracts
         Task<List<DisplayCompaniesModel>> ReturnAllManufacturers();
         Task<AddNewCompanyModel> FindCompany(int id);
         Task SaveChangesAsync(AddNewCompanyModel company);
+        Task Delete(int id);
     }
 }

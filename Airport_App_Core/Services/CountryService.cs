@@ -56,6 +56,18 @@ namespace Airport_App_Core.Services
 
         }
 
+        public async Task Delete(int id)
+        {
+            var result = await data.Countries.FirstAsync(c => c.Id == id);
+            var company = await data.Manufacturers.FirstOrDefaultAsync(c => c.CountryId == id);
+            if (company != null)
+            {
+                return;
+            }
+            data.Remove(result);
+            await data.SaveChangesAsync();
+        }
+
         public async Task<AddNewCountryModel> FindCountry(int id)
         {
             List<AddNewCountryModel> model = await data
@@ -119,5 +131,7 @@ namespace Airport_App_Core.Services
 
             await data.SaveChangesAsync();
         }
+
+        
     }
 }

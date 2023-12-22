@@ -88,6 +88,13 @@ namespace Airport_App.Controllers
             return RedirectToAction(nameof(AllJets));
         }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            
+            await airplaneService.DeleteAsync(id);
+            return RedirectToAction(nameof(AllJets));
+        }
+
 
     }
 }

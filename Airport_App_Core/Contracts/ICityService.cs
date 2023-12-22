@@ -11,5 +11,6 @@ namespace Airport_App_Core.Contracts
         Task<List<DisplayCitiesModel>> AllCities();
         Task<AddNewCityModel> FindCity(int id);
         Task SaveChangesAsync(AddNewCityModel model);
+        Task Delete(int id);
     }
 }

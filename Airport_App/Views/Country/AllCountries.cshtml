@@ -29,6 +29,7 @@ else
                 <th scope="col">Name</th>
                 <th scope="col">Continent</th>
                 <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
 
@@ -42,7 +43,10 @@ else
                     <td>@Model[i].Continent</td>
                     <td>
                         <a asp-controller="Country" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn btn-warning">Edit</a>
-                    </td
+                    </td>
+                    <td>
+                        <a asp-controller="Country" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Edit</a>
+                    </td>
                 </tr>
             </tbody>
         }

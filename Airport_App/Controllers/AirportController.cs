@@ -69,5 +69,11 @@ namespace Airport_App.Controllers
             return RedirectToAction(nameof(AllAirports));
         }
 
+        public async Task<IActionResult> Delete (int id)
+        {
+            await airportService.DeleteAsync(id);
+            return RedirectToAction(nameof(AllAirports));
+        }
+
     }
 }

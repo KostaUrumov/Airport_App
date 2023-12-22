@@ -41,6 +41,18 @@ namespace Airport_App_Core.Services
              
         }
 
+        public async Task Delete(int id)
+        {
+            var toDelete = await data.Manufacturers.FirstAsync(x => x.Id == id);
+            var air = await data.Aircrafts.FirstOrDefaultAsync(x => x.ManufacturerId == toDelete.Id);
+            if (air != null)
+            {
+                return;
+            }
+            data.Remove(toDelete);
+            await data.SaveChangesAsync();
+        }
+
         public async Task<AddNewCompanyModel> FindCompany(int id)
         {
             AddNewCompanyModel model = new AddNewCompanyModel();

@@ -30,6 +30,7 @@ else
                 <th scope="col">Model</th>
                 <th scope="col">Capacity</th>
                 <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
 
@@ -44,6 +45,9 @@ else
                     <td>@Model[i].Seats</td>
                     <td>
                         <a asp-controller="Airplane" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn btn-warning">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Airplane" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Detele</a>
                     </td>
                     
                 </tr>

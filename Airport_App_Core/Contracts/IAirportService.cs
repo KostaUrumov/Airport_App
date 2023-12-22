@@ -11,5 +11,6 @@ namespace Airport_App_Core.Contracts
         Task<List<DisplayAirportModel>> GetAllAirports();
         Task<AddNewAirportModel> FindAirport(int id);
         Task SaveChangesAsync(AddNewAirportModel port);
+        Task DeleteAsync(int id);
     }
 }

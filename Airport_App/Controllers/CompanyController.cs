@@ -66,6 +66,12 @@ namespace Airport_App.Controllers
             return RedirectToAction(nameof(AllCompanies));
         }
 
+        public async Task <IActionResult> Delete (int id)
+        {
+            await manufacturerServce.Delete(id);
+            return RedirectToAction(nameof(AllCompanies));
+        }
+
 
     }
 }

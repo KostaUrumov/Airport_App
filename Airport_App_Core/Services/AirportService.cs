@@ -44,6 +44,21 @@ namespace Airport_App_Core.Services
             return false;
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var toDelete = await data.Airports.FirstAsync(a => a.Id == id);
+            var find = await data
+                .Flights
+                .FirstOrDefaultAsync(a => a.ArrivalAirportId == id || a.DepartureAirportId == id);
+                
+            if (find != null)
+            {
+                return;
+            }
+            data.Remove(toDelete);
+            await data.SaveChangesAsync();
+        }
+
         public async Task<AddNewAirportModel> FindAirport(int id)
         {
             AddNewAirportModel[] list = await data

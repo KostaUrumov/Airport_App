@@ -30,6 +30,7 @@ else
                 <th scope="col">Country</th>
                 <th scope="col">City</th>
                 <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
                 
             </tr>
         </thead>
@@ -45,6 +46,9 @@ else
                     <td>@Model[i].CityName</td>
                     <td>
                         <a asp-controller="City" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn btn-warning">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-controller="City" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>
