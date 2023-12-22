@@ -56,6 +56,21 @@ namespace Airport_App_Core.Services
 
         }
 
+        public async Task<AddNewCountryModel> FindCountry(int id)
+        {
+            List<AddNewCountryModel> model = await data
+                .Countries
+                .Where(c => c.Id == id)
+                .Select(c => new AddNewCountryModel
+                {
+                    Name = c.Name,
+                    Id = c.Id
+
+                })
+                .ToListAsync();
+            return model[0];
+        }
+
         public async Task<List<CountryViewModel>> GetAllCountries()
         {
             List<CountryViewModel> countries = await data
@@ -63,11 +78,46 @@ namespace Airport_App_Core.Services
                 .Select(c => new CountryViewModel
                 {
                     Name = c.Name,
-                    Continent = c.Continent.ToString()
+                    Continent = c.Continent.ToString(),
+                    Id = c.Id
                 })
                 .OrderBy(x => x.Name)
                 .ToListAsync();
             return countries;
+        }
+
+        public async Task SaveChangesAsync(AddNewCountryModel model)
+        {
+            var findCountry = await  data.Countries.FirstAsync(x => x.Id == model.Id);
+            findCountry.Name = model.Name;
+            if (model.ContinentId == "Europe")
+            {
+                findCountry.Continent = Aiport_App_Structure.Models.Enums.Continent.Europe;
+            }
+            if (model.ContinentId == "Asia")
+            {
+                findCountry.Continent = Aiport_App_Structure.Models.Enums.Continent.Asia;
+            }
+            if (model.ContinentId == "North_America")
+            {
+                findCountry.Continent = Aiport_App_Structure.Models.Enums.Continent.North_America;
+            }
+            if (model.ContinentId == "South_America")
+            {
+                findCountry.Continent = Aiport_App_Structure.Models.Enums.Continent.South_America;
+            }
+
+            if (model.ContinentId == "Australia")
+            {
+                findCountry.Continent = Aiport_App_Structure.Models.Enums.Continent.Australia;
+            }
+
+            if (model.ContinentId == "Africa")
+            {
+                findCountry.Continent = Aiport_App_Structure.Models.Enums.Continent.Africa;
+            }
+
+            await data.SaveChangesAsync();
         }
     }
 }

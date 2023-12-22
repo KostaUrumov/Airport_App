@@ -8,5 +8,7 @@ namespace Airport_App_Core.Contracts
         Task<IEnumerable<Country>> AddAllCountries();
         Task AddNewCountry(AddNewCountryModel model);
         Task<List<CountryViewModel>> GetAllCountries();
+        Task<AddNewCountryModel> FindCountry(int id);
+        Task SaveChangesAsync(AddNewCountryModel model);
     }
 }

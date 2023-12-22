@@ -5,6 +5,7 @@ namespace Airport_App_Core.Models.CountryModels
 {
     public class AddNewCountryModel
     {
+        public int Id { get; set; }
         [Required]
         [MaxLength(DataConstraints.Country.NameMaxLength)]
         [MinLength(DataConstraints.Country.NameMinLength)]
@@ -13,6 +14,6 @@ namespace Airport_App_Core.Models.CountryModels
         [Required]
         public ICollection<string> Continents { get; set; } = new List<string>();
 
-        public string ContinentId { get; set; }
+        public string ContinentId { get; set; } = null!;
     }
 }
