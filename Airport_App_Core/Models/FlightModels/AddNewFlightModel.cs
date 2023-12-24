@@ -25,11 +25,7 @@ namespace Airport_App_Core.Models.FlightModels
        
         public IEnumerable<Airport> ArrivalAirport { get; set; } = new List<Airport>();
 
-        [Required]
-        public int AircraftId { get; set; }
-
-
-        public IEnumerable<Aircraft> Aircraft { get; set; } = new List<Aircraft>();
+        
 
         [Required]
         public int TotalTickets { get; set; }
@@ -43,6 +39,10 @@ namespace Airport_App_Core.Models.FlightModels
         [Required]
         [Precision(18, 2)]
         public decimal Price { get; set; }
-        
+        public ICollection<string> AirplaneModel { get; set; } = new List<string>();
+
+        [Required]
+        public string AirplaneModelId { get; set; } = null!;
+
     }
 }

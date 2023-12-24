@@ -130,7 +130,7 @@ namespace Airport_App.Controllers
             {
                 DepartureAirport = await airportService.AddAllAirports(),
                 ArrivalAirport = await airportService.AddAllAirports(),
-                Aircraft = await airplaneService.AddAllAircrafts(),
+                AirplaneModel = await airplaneService.AddPlanes(),
                 DepartureTime = DateTime.Parse(depart.ToString("dd-MM-yyyy, HH:mm")),
                 ArivalTime = DateTime.Parse(arrive.ToString("dd-MM-yyyy, HH:mm")),
 

@@ -38,7 +38,7 @@ namespace Airport_App_Core.Services
         {
             List<string> result = await data
                 .Aircrafts
-                .Select(a => a.Manufacturer.ToString()+a.Model.ToString())
+                .Select(a => a.Manufacturer.Name.ToString()+a.Model.ToString())
                 .ToListAsync();
             return result;
         }
