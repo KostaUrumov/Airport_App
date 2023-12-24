@@ -1,7 +1,6 @@
 ﻿using Aiport_App_Structure.Data;
 using Aiport_App_Structure.Models;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Airport_App_Core.Models.FlightModels
@@ -16,7 +15,7 @@ namespace Airport_App_Core.Models.FlightModels
         [Required]
         public int DepartureAirportId { get; set; }
 
-        public IEnumerable<Airport> DepartureAirport { get; set; } = new List<Airport>();
+        public IEnumerable<Airport> Departures { get; set; } = new List<Airport>();
 
 
         [Required]

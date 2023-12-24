@@ -14,6 +14,11 @@ namespace Airport_App_Core.Services
             data = _data;
         }
 
+        public Task AddNewFlight(AddNewFlightModel addFlight)
+        {
+           
+        }
+
         public async Task<List<DisplayFlightModel>> AllByCountryDeparture(int countryId)
         {
             List<DisplayFlightModel> flights = await data

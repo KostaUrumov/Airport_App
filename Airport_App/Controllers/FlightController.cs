@@ -128,7 +128,7 @@ namespace Airport_App.Controllers
 
             AddNewFlightModel addFlight = new AddNewFlightModel()
             {
-                DepartureAirport = await airportService.AddAllAirports(),
+                Departures = await airportService.AddAllAirports(),
                 ArrivalAirport = await airportService.AddAllAirports(),
                 AirplaneModel = await airplaneService.AddPlanes(),
                 DepartureTime = DateTime.Parse(depart.ToString("dd-MM-yyyy, HH:mm")),
@@ -137,6 +137,20 @@ namespace Airport_App.Controllers
             };
 
             return View(addFlight);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewFlight(AddNewFlightModel addFlight)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(AllFlights));
+            }
+            
+            await flightsService.AddNewFlight(addFlight);
+
+            return RedirectToAction(nameof(AllFlights));
+            
         }
 
 
