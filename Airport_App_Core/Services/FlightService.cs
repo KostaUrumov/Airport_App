@@ -1,4 +1,5 @@
-﻿using Airport_App_Core.Contracts;
+﻿using Aiport_App_Structure.Models;
+using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,40 @@ namespace Airport_App_Core.Services
             data = _data;
         }
 
-        public Task AddNewFlight(AddNewFlightModel addFlight)
+        public async Task AddNewFlight(AddNewFlightModel addFlight)
         {
-           
+            int index = 0;
+            for (var i = 0; i < addFlight.AirplaneModelId.ToString().Length; i++)
+            {
+                if (addFlight.AirplaneModelId.ToString()[i] == 32)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            string manufacturerAirplane = addFlight.AirplaneModelId.ToString().Substring(0, index);
+            string model = addFlight.AirplaneModelId.ToString().Substring(index+1);
+
+            Aircraft aircraft = await data.Aircrafts.FirstAsync(x => x.Manufacturer.Name == manufacturerAirplane
+            && x.Model == model);
+            Flight newFlight = new Flight();
+            newFlight.FlightNumber = addFlight.FlightNumber;
+            newFlight.AircraftId = aircraft.Id;
+            newFlight.ArrivalAirportId = addFlight.ArrivalAirportId;
+            newFlight.DepartureAirportId = addFlight.DepartureAirportId;
+            newFlight.DepartureTime = addFlight.DepartureTime;
+            newFlight.ArivalTime = addFlight.ArivalTime;
+            newFlight.TotalTickets = addFlight.TotalTickets;
+            newFlight.Price = addFlight.Price;
+            newFlight.AircraftsFlights.Add(new AircraftFlights()
+            {
+                AircraftId = aircraft.Id,
+            });
+            data.Flights.Add(newFlight);
+
+            await data.SaveChangesAsync();
+
         }
 
         public async Task<List<DisplayFlightModel>> AllByCountryDeparture(int countryId)
