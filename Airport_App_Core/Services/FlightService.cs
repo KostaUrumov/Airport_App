@@ -112,6 +112,43 @@ namespace Airport_App_Core.Services
             return flights;
         }
 
+        public async Task<AddNewFlightModel> FindFlight(int id)
+        {
+            var result = await data.Flights.FirstAsync(x => x.Id == id);
+            AddNewFlightModel flight = new AddNewFlightModel();
+            flight.Id = result.Id;
+            return flight;
+        }
+
+        public async Task SaveChangesAsync(AddNewFlightModel addFlight)
+        {
+            var flight = await data.Flights.FirstAsync(x => x.Id == addFlight.Id);
+            int index = 0;
+            for (var i = 0; i < addFlight.AirplaneModelId.ToString().Length; i++)
+            {
+                if (addFlight.AirplaneModelId.ToString()[i] == 32)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            string manufacturerAirplane = addFlight.AirplaneModelId.ToString().Substring(0, index);
+            string model = addFlight.AirplaneModelId.ToString().Substring(index + 1);
+
+            Aircraft aircraft = await data.Aircrafts.FirstAsync(x => x.Manufacturer.Name == manufacturerAirplane
+            && x.Model == model);
+            flight.FlightNumber = addFlight.FlightNumber;
+            flight.AircraftId = aircraft.Id;
+            flight.ArrivalAirportId = addFlight.ArrivalAirportId;
+            flight.DepartureAirportId = addFlight.DepartureAirportId;
+            flight.DepartureTime = addFlight.DepartureTime;
+            flight.ArivalTime = addFlight.ArivalTime;
+            flight.TotalTickets = addFlight.TotalTickets;
+            flight.Price = addFlight.Price;
+            await data.SaveChangesAsync();
+
+        }
+
         public async Task<List<DisplayFlightModel>> SearchFlight(SearchFlightModel model)
         {
             List<DisplayFlightModel> flight = await data

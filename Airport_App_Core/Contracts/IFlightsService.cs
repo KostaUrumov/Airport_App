@@ -11,5 +11,7 @@ namespace Airport_App_Core.Contracts
         Task<List<DisplayFlightModel>> FilterByDepartureAirport(int airportId);
         Task<List<DisplayFlightModel>> AllFlights();
         Task AddNewFlight(AddNewFlightModel addFlight);
+        Task<AddNewFlightModel> FindFlight(int id);
+        Task SaveChangesAsync(AddNewFlightModel addFlight);
     }
 }

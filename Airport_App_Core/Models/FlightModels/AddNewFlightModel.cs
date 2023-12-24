@@ -7,7 +7,7 @@ namespace Airport_App_Core.Models.FlightModels
 {
     public class AddNewFlightModel
     {
-      
+        public int Id { get; set; }
         [Required]
         [MaxLength(DataConstraints.Flight.NumberLength)]
         public string FlightNumber { get; set; } = null!;

@@ -115,8 +115,28 @@ namespace Airport_App.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            DateTime depart = DateTime.UtcNow;
+            DateTime arrive = depart.AddMinutes(60);
+
+            var result  = await flightsService.FindFlight(id);
+            result.Departures = await airportService.AddAllAirports();
+            result.ArrivalAirport = await airportService.AddAllAirports();
+            result.DepartureTime = DateTime.Parse(depart.ToString("dd-MM-yyyy, HH:mm"));
+            result.ArivalTime = DateTime.Parse(arrive.ToString("dd-MM-yyyy, HH:mm"));
+            result.AirplaneModel = await airplaneService.AddPlanes();
+            return View(result);
         }
+
+        [HttpPost]
+
+        public async Task<IActionResult> Edit(AddNewFlightModel addFlight)
+        {
+            
+            await flightsService.SaveChangesAsync(addFlight);
+            return RedirectToAction(nameof(AllFlights));
+
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> AddNewFlight()
