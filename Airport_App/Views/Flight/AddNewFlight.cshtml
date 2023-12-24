@@ -1,0 +1,101 @@
+﻿@model AddNewFlightModel
+@{
+    ViewData["Title"] = "Add new flight";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="" method="post">
+            <h3 class="text-center">@ViewBag.title</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating">
+                <input asp-for="@Model.FlightNumber" class="form-control" autocomplete="model" aria-required="true" />
+                <label asp-for="@Model.FlightNumber"></label>
+                <span asp-validation-for="@Model.FlightNumber" class="text-danger"></span>
+            </div>
+
+            <p></p>
+            <p></p>
+
+            <div class="mb-3">
+                <label asp-for="@Model.DepartureAirportId" class="form-label"> Departure Airport</label>
+                <select asp-for="@Model.DepartureAirportId" class="form-control">
+                    @foreach (var airport in Model.DepartureAirport)
+                    {
+                        <option value="@airport.Id">@airport.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="DepartureAirportId" class="text-danger"></span>
+            </div>
+
+            <p></p>
+            <p></p>
+
+            <div class="mb-3">
+                <label asp-for="@Model.ArrivalAirportId" class="form-label">Arrival Airport</label>
+                <select asp-for="@Model.ArrivalAirportId" class="form-control">
+                    @foreach (var airport in Model.ArrivalAirport)
+                    {
+                        <option value="@airport.Id">@airport.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ArrivalAirportId" class="text-danger"></span>
+            </div>
+
+            <p></p>
+            <p></p>
+
+            <div class="mb-3">
+                <label asp-for="@Model.AircraftId" class="form-label"> Select Aircraft</label>
+                <select asp-for="@Model.AircraftId" class="form-control">
+                    @foreach (var plane in Model.Aircraft)
+                    {
+                        <option value="@plane.Id">@plane.Model</option>
+                    }
+                </select>
+                <span asp-validation-for="AircraftId" class="text-danger"></span>
+            </div>
+
+            <p></p>
+            <p></p>
+
+            
+
+            <div class="form-floating">
+                <input asp-for="@Model.DepartureTime" class="form-control" autocomplete="model" aria-required="true" />
+                <label asp-for="@Model.DepartureTime"></label>
+                <span asp-validation-for="@Model.DepartureTime" class="text-danger"></span>
+            </div>
+
+            <p></p>
+            <p></p>
+
+            <div class="form-floating">
+                <input asp-for="@Model.ArivalTime" class="form-control" autocomplete="model" aria-required="true" />
+                <label asp-for="@Model.ArivalTime"></label>
+                <span asp-validation-for="@Model.ArivalTime" class="text-danger"></span>
+            </div>
+
+
+            <p></p>
+            <p></p>
+
+            <div class="form-floating">
+                <input asp-for="@Model.TotalTickets" class="form-control" autocomplete="model" aria-required="true" />
+                <label asp-for="@Model.TotalTickets"></label>
+                <span asp-validation-for="@Model.TotalTickets" class="text-danger"></span>
+            </div>
+
+
+            <p></p>
+            <p></p>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

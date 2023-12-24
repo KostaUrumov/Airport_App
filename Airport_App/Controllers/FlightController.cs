@@ -2,6 +2,8 @@
 using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace Airport_App.Controllers
 {
@@ -12,13 +14,15 @@ namespace Airport_App.Controllers
         private readonly ICountryService countryService;
         private readonly ICityService cityService;
         private readonly IAirportService airportService;
+        private readonly IAirplaneService airplaneService;
 
         public FlightController(
             AirportDb _data,
             IFlightsService _flightsService,
             ICountryService _countryService,
             IAirportService _airportService,
-            ICityService _cityService
+            ICityService _cityService,
+            IAirplaneService _airplaneService
             )
         {
             data = _data;
@@ -26,6 +30,7 @@ namespace Airport_App.Controllers
             countryService = _countryService;
             airportService = _airportService;
             cityService = _cityService;
+            airplaneService = _airplaneService;
         }
 
         public async Task<IActionResult> LastFive()
@@ -100,6 +105,40 @@ namespace Airport_App.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> AllFlights()
+        {
+            var result = await flightsService.AllFlights();
+            return View(result); 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddNewFlight()
+        {
+            
+            DateTime depart = DateTime.UtcNow;
+            DateTime arrive = depart.AddMinutes(60);
+
+
+            AddNewFlightModel addFlight = new AddNewFlightModel()
+            {
+                DepartureAirport = await airportService.AddAllAirports(),
+                ArrivalAirport = await airportService.AddAllAirports(),
+                Aircraft = await airplaneService.AddAllAircrafts(),
+                DepartureTime = DateTime.Parse(depart.ToString("dd-MM-yyyy, HH:mm")),
+                ArivalTime = DateTime.Parse(arrive.ToString("dd-MM-yyyy, HH:mm")),
+
+            };
+
+            return View(addFlight);
+        }
+
 
     }
 }

@@ -2,6 +2,7 @@
 {
     public class DisplayFlightModel
     {
+        public int Id { get; set; }
         public string DepartureCity { get; set; } = null!;
 
         public string DepartureAirport { get; set; } = null!;

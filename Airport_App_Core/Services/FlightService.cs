@@ -1,8 +1,6 @@
-﻿using Aiport_App_Structure.Models;
-using Airport_App_Core.Contracts;
+﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airport_App_Core.Services
@@ -30,6 +28,26 @@ namespace Airport_App_Core.Services
                     Price = x.Price.ToString(),
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+
+                })
+                .ToListAsync();
+            return flights;
+        }
+
+        public async Task<List<DisplayFlightModel>> AllFlights()
+        {
+            List<DisplayFlightModel> flights = await data
+                .Flights
+                .Select(f=> new DisplayFlightModel
+                {
+                    DepartureCity = f.DepartureAirport.City.Name,
+                    DepartureAirport = f.DepartureAirport.Name,
+                    DestinationAirport = f.ArrivalAirport.Name,
+                    DestinationCity = f.ArrivalAirport.City.Name,
+                    Price = f.Price.ToString(),
+                    ArriveDate = f.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
+                    StartDate = f.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
+                    Id = f.Id
 
                 })
                 .ToListAsync();

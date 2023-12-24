@@ -34,6 +34,15 @@ namespace Airport_App_Core.Services
             return await data.Aircrafts.OrderBy(x=>x.Model).ToListAsync();
         }
 
+        public async Task<List<string>> AddPlanes()
+        {
+            List<string> result = await data
+                .Aircrafts
+                .Select(a => a.Manufacturer.ToString()+a.Model.ToString())
+                .ToListAsync();
+            return result;
+        }
+
         public async Task DeleteAsync(int id)
         {
             var find = await data.Aircrafts.FirstAsync(x => x.Id == id);

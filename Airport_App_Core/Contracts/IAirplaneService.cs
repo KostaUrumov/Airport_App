@@ -12,6 +12,7 @@ namespace Airport_App_Core.Contracts
         Task<AddNewPlane> FindJet(int id);
         Task SaveChangesAsync(AddNewPlane plane);
         Task DeleteAsync(int id);
+        Task <List<string>>AddPlanes();
 
     }
 }
