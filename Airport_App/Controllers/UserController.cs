@@ -38,7 +38,8 @@ namespace Airport_App.Controllers
                 return RedirectToAction(nameof(Register));
             }
 
-            await userService.RegisterNewUser(user);
+            var newUser = await userService.RegisterNewUser(user);
+            await userService.AddUserToRole(newUser);
             return RedirectToAction("Index", "Home");
         }
 

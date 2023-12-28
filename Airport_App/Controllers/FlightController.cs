@@ -2,8 +2,6 @@
 using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 
 namespace Airport_App.Controllers
 {

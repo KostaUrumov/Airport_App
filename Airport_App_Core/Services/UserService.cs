@@ -13,17 +13,36 @@ namespace Airport_App_Core.Services
     {
         private readonly AirportDb data;
         private readonly SignInManager<User> signInManager;
-        //private readonly UserManager<User> userManager;
-        //private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<User> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public UserService(
             AirportDb _data,
-            SignInManager<User> _signInmanager
+            SignInManager<User> _signInmanager,
+            RoleManager<IdentityRole> _roleManager,
+            UserManager<User> _userManager
             )
         {
             data = _data;
             signInManager = _signInmanager;
-            
+            roleManager = _roleManager;
+            userManager = _userManager;
+        }
+
+        public async Task AddUserToRole(User user)
+        {
+            var findUser = data.Users.First(x => x.UserName == user.UserName);
+            if (findUser.UserName == "kostadin")
+            {
+                await userManager.AddToRoleAsync(findUser, "Admin");
+            }
+
+            else
+            {
+                await userManager.AddToRoleAsync(findUser, "User");
+            }
+
+            await data.SaveChangesAsync();
         }
 
         public async Task<bool> LogInAsync(LogInViewModel model)
@@ -53,7 +72,7 @@ namespace Airport_App_Core.Services
 
         }
 
-        public async Task RegisterNewUser(AddNewUserModel model)
+        public async Task<User> RegisterNewUser(AddNewUserModel model)
         {
             byte[] salt;
             new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
@@ -80,8 +99,9 @@ namespace Airport_App_Core.Services
 
             data.Add(user);
             await data.SaveChangesAsync();
-
             await signInManager.SignInAsync(user, isPersistent: false);
+            return user;
+           
         }
     }
 }

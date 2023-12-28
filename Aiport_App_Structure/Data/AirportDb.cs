@@ -1,4 +1,5 @@
 ﻿using Aiport_App_Structure.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SqlServer.Server;
@@ -71,6 +72,11 @@ namespace Airport_App_Structure.Data
                 new AircraftFlights {FlightId = 1, AircraftId = 2 },
                 new AircraftFlights { FlightId = 2, AircraftId = 1 }
                 );
+
+            builder.Entity<IdentityRole>()
+                .HasData(
+                new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Admin", NormalizedName = "ADMIN".ToUpper() },
+                new IdentityRole { Id = "2c93174e-3b0e-446f-86af-883d56fr7210", Name = "User", NormalizedName = "USER".ToUpper() });
 
 
 
