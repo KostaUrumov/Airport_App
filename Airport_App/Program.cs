@@ -12,12 +12,6 @@ builder.Services.AddDbContext<AirportDb>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddScoped<IFlightsService, FlightService>();
-builder.Services.AddScoped<ICountryService, CountryService>();
-builder.Services.AddScoped<IAirportService, AirportService>();
-builder.Services.AddScoped<IAirplaneService, AirplaneService>();
-builder.Services.AddScoped<IManufacturerServce, ManufacturerServce>();
-builder.Services.AddScoped<ICityService, CityService>();
 
 builder.Services.AddDefaultIdentity<User>(options =>
 {
@@ -31,6 +25,14 @@ builder.Services.AddDefaultIdentity<User>(options =>
 })
     .AddEntityFrameworkStores<AirportDb>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFlightsService, FlightService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IAirportService, AirportService>();
+builder.Services.AddScoped<IAirplaneService, AirplaneService>();
+builder.Services.AddScoped<IManufacturerServce, ManufacturerServce>();
+builder.Services.AddScoped<ICityService, CityService>();
 
 var app = builder.Build();
 
