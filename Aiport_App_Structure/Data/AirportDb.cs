@@ -5,7 +5,7 @@ using Microsoft.SqlServer.Server;
 using System.Globalization;
 namespace Airport_App_Structure.Data
 {
-    public class AirportDb : IdentityDbContext
+    public class AirportDb : IdentityDbContext<User>
     {
         public AirportDb(DbContextOptions<AirportDb> options)
             : base(options)

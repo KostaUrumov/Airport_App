@@ -1,5 +1,4 @@
-﻿using Aiport_App_Structure.Models;
-using Airport_App_Core.Models.FlightModels;
+﻿using Airport_App_Core.Models.FlightModels;
 
 namespace Airport_App_Core.Contracts
 {
@@ -13,5 +12,7 @@ namespace Airport_App_Core.Contracts
         Task AddNewFlight(AddNewFlightModel addFlight);
         Task<AddNewFlightModel> FindFlight(int id);
         Task SaveChangesAsync(AddNewFlightModel addFlight);
+        public bool CheckAirports(AddNewFlightModel addFlight);
+        public bool CheckDates(AddNewFlightModel addFlight);
     }
 }

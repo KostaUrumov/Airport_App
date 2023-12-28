@@ -48,5 +48,14 @@
             public const int NameMaxLength = 100;
         }
 
+        public class User
+        {
+            public const int MinUserName = 2;
+            public const int MaxUserName = 50;
+
+            public const int MinNameLenght = 2;
+            public const int MaxNameLenght = 50;
+        }
+
     }
 }

@@ -91,6 +91,27 @@ namespace Airport_App_Core.Services
             return flights;
         }
 
+        public bool CheckAirports(AddNewFlightModel addFlight)
+        {
+            if (addFlight.DepartureAirportId == addFlight.ArrivalAirportId)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public bool CheckDates(AddNewFlightModel addFlight)
+        {
+            if (addFlight.ArivalTime<= addFlight.DepartureTime)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
         public async Task<List<DisplayFlightModel>> FilterByDepartureAirport(int airportId)
         {
             List<DisplayFlightModel> flights = await data

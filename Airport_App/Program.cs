@@ -1,7 +1,7 @@
+using Aiport_App_Structure.Models;
 using Airport_App_Core.Contracts;
 using Airport_App_Core.Services;
 using Airport_App_Structure.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +19,16 @@ builder.Services.AddScoped<IAirplaneService, AirplaneService>();
 builder.Services.AddScoped<IManufacturerServce, ManufacturerServce>();
 builder.Services.AddScoped<ICityService, CityService>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 4;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.SignIn.RequireConfirmedAccount = false;
+
+})
     .AddEntityFrameworkStores<AirportDb>();
 builder.Services.AddControllersWithViews();
 

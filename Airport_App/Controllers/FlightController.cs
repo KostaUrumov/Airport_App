@@ -167,6 +167,19 @@ namespace Airport_App.Controllers
                 return RedirectToAction(nameof(AllFlights));
             }
             
+            var differentAirport = flightsService.CheckAirports(addFlight);
+            if (differentAirport == false)
+            {
+                return RedirectToAction(nameof(AllFlights));
+            }
+
+            var checkDifferentDates = flightsService.CheckDates(addFlight);
+            if (checkDifferentDates == false)
+            {
+                return RedirectToAction(nameof(AllFlights));
+            }
+
+
             await flightsService.AddNewFlight(addFlight);
 
             return RedirectToAction(nameof(AllFlights));
