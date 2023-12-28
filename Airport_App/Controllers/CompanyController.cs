@@ -1,5 +1,6 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.CompanyModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airport_App.Controllers
@@ -18,6 +19,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> AddNewCompany()
         {
             AddNewCompanyModel company = new AddNewCompanyModel()
@@ -28,6 +31,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> AddNewCompany(AddNewCompanyModel company)
         {
             if(!ModelState.IsValid)
@@ -51,6 +56,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Edit (int id)
         {
             var company = await manufacturerServce.FindCompany(id);
@@ -58,6 +65,8 @@ namespace Airport_App.Controllers
             return View(company);
         }
 
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
 
         [HttpPost]
         public async Task<IActionResult> Edit(AddNewCompanyModel company)
@@ -66,6 +75,8 @@ namespace Airport_App.Controllers
             return RedirectToAction(nameof(AllCompanies));
         }
 
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task <IActionResult> Delete (int id)
         {
             await manufacturerServce.Delete(id);

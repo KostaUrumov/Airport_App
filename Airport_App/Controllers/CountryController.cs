@@ -1,5 +1,6 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.CountryModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airport_App.Controllers
@@ -14,6 +15,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public IActionResult AddNewCountry()
         {
             AddNewCountryModel model = new AddNewCountryModel();
@@ -27,6 +30,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> AddNewCountry(AddNewCountryModel model)
         {
             if (!ModelState.IsValid)
@@ -45,6 +50,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Edit (int id)
         {
             var result = await countryService.FindCountry(id);
@@ -58,6 +65,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Edit(AddNewCountryModel model)
         {
             if (!ModelState.IsValid)
@@ -68,6 +77,8 @@ namespace Airport_App.Controllers
             return RedirectToAction(nameof(AllCountries));
         }
 
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Delete(int id)
         {
             await countryService.Delete(id);

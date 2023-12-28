@@ -1,6 +1,7 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.FlightModels;
 using Airport_App_Structure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airport_App.Controllers
@@ -63,6 +64,7 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> FilterByCountry()
         {
             FilterByCountryModel model = new FilterByCountryModel()
@@ -75,6 +77,7 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> FilterByCountry(int countryId)
         {
             var result = await flightsService.AllByCountryDeparture (countryId);
@@ -82,6 +85,7 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> FilterByDepartureAirport()
         {
             FilterByDepartureAirportModel model = new FilterByDepartureAirportModel()
@@ -92,13 +96,14 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> FilterByDepartureAirport(int airportId)
         {
             var result = await flightsService.FilterByDepartureAirport(airportId);
             return View(nameof(Display), result);
         }
 
-
+        [Authorize]
         public IActionResult Filter()
         {
             return View();
@@ -111,6 +116,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Edit(int id)
         {
             DateTime depart = DateTime.UtcNow;
@@ -126,6 +133,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
 
         public async Task<IActionResult> Edit(AddNewFlightModel addFlight)
         {
@@ -137,6 +146,8 @@ namespace Airport_App.Controllers
 
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> AddNewFlight()
         {
             
@@ -158,6 +169,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> AddNewFlight(AddNewFlightModel addFlight)
         {
             if (!ModelState.IsValid)
