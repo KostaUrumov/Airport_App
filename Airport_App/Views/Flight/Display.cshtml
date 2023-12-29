@@ -16,8 +16,10 @@
         <a class="" asp-area="" asp-controller="Flight" asp-action="Search">Search for flight</a>
         <p></p>
         <p></p>
-        <a class="" asp-area="" asp-controller="Flight" asp-action="Filter">Filter flights</a>
-
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            <a class="" asp-area="" asp-controller="Flight" asp-action="Filter">Filter flights</a>
+        }
     </div>
 }
 else
@@ -34,6 +36,7 @@ else
                 <th scope="col">Price</th>
                 <th scope="col">Departure</th>
                 <th scope="col">Arrive</th>
+                <th scope="col">Buy</th>
             </tr>
         </thead>
 
@@ -50,6 +53,9 @@ else
                     <td>@Model[i].Price $</td>
                     <td>@Model[i].StartDate</td>
                     <td>@Model[i].ArriveDate</td>
+                    <td>
+                        <a asp-controller="Flight" asp-action="BuyTickets" asp-route-id="@Model[i].Id" class="btn btn-warning">Buy</a>
+                    </td>
                 </tr>
             </tbody>
         }

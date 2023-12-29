@@ -22,7 +22,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.Password.RequireLowercase = false;
     options.Password.RequireUppercase = false;
     options.SignIn.RequireConfirmedAccount = false;
-
+    
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AirportDb>();
@@ -37,6 +37,7 @@ builder.Services.AddScoped<IAirportService, AirportService>();
 builder.Services.AddScoped<IAirplaneService, AirplaneService>();
 builder.Services.AddScoped<IManufacturerServce, ManufacturerServce>();
 builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<IPassengerService, PassengerService>();
 
 
 builder.Services.AddAuthorization(options =>

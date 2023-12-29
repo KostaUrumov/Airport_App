@@ -16,6 +16,7 @@
             <th scope="col">Arrival city</th>
             <th scope="col">Arrival Airport</th>
             <th scope="col">Price</th>
+            <th scope="col">Buy</th>
         </tr>
     </thead>
     
@@ -30,6 +31,9 @@
                 <td>@Model[i].DestinationCity</td>
                 <td>@Model[i].DestinationAirport.ToString()</td>
                 <td>@Model[i].Price $</td>
+                <td>
+                    <a asp-controller="Flight" asp-action="BuyTickets" asp-route-id="@Model[i].Id" class="btn btn-warning">Buy</a>
+                </td>
             </tr>
         </tbody>
     }

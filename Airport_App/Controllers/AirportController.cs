@@ -1,5 +1,6 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.AirportModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airport_App.Controllers
@@ -18,6 +19,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewAirport()
         {
             AddNewAirportModel model = new AddNewAirportModel()
@@ -27,6 +30,9 @@ namespace Airport_App.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewAirport(AddNewAirportModel port)
         {
             if (!ModelState.IsValid)
@@ -50,6 +56,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var airport = await airportService.FindAirport(id);
@@ -58,6 +66,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(AddNewAirportModel model)
         {
             if (!ModelState.IsValid)
@@ -69,6 +79,8 @@ namespace Airport_App.Controllers
             return RedirectToAction(nameof(AllAirports));
         }
 
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete (int id)
         {
             await airportService.DeleteAsync(id);

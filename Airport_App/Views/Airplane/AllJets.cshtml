@@ -19,9 +19,8 @@
 
     </div>
 }
-else
+@if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
 {
-
     <table class="table">
         <thead>
             <tr>
@@ -49,6 +48,38 @@ else
                     <td>
                         <a asp-controller="Airplane" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Detele</a>
                     </td>
+
+                </tr>
+            </tbody>
+        }
+
+    </table>
+
+    
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Model</th>
+                <th scope="col">Capacity</th>
+                
+            </tr>
+        </thead>
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            int number = @i + 1;
+            <tbody>
+                <tr>
+                    <td>@number</td>
+                    <td>@Model[i].Manufacturer</td>
+                    <td>@Model[i].Model</td>
+                    <td>@Model[i].Seats</td>
                     
                 </tr>
             </tbody>

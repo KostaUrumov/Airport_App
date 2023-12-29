@@ -65,10 +65,12 @@ namespace Airport_App.Controllers
             return View(company);
         }
 
+        
+
+        [HttpPost]
         [Authorize]
         [Authorize(Policy = "AdminsOnly")]
 
-        [HttpPost]
         public async Task<IActionResult> Edit(AddNewCompanyModel company)
         {
             await manufacturerServce.SaveChangesAsync(company);

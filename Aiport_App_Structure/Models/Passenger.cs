@@ -9,10 +9,16 @@ namespace Aiport_App_Structure.Models
 
         [Required]
         [MaxLength(DataConstraints.Passenger.NameMaxLength)]
-        public string Name { get; set; } = null!;
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(DataConstraints.Passenger.NameMaxLength)]
+        public string LastName { get; set; } = null!;
 
         [Required]
         [Range(DataConstraints.Passenger.MinAge, DataConstraints.Passenger.MaxAge)]
         public int Age { get; set; }
+
+        public ICollection<FlightPassenger> FlightsPassengers { get; set; } = new List<FlightPassenger>();
     }
 }

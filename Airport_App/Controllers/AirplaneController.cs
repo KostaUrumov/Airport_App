@@ -1,5 +1,6 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.AirplaneModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -42,6 +43,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPLane()
         {
             AddNewPlane model = new AddNewPlane()
@@ -52,6 +55,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPLane(AddNewPlane plane)
         {
             if (!ModelState.IsValid)
@@ -70,6 +75,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit (int id)
         {
             var plane = await airplaneService.FindJet(id);
@@ -78,6 +85,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(AddNewPlane plane)
         {
             if (!ModelState.IsValid)
@@ -87,7 +96,8 @@ namespace Airport_App.Controllers
             await airplaneService.SaveChangesAsync(plane);
             return RedirectToAction(nameof(AllJets));
         }
-
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             

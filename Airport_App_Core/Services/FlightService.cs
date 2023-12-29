@@ -205,6 +205,7 @@ namespace Airport_App_Core.Services
                     DepartureCity = x.DepartureAirport.City.Name,
                     DestinationAirport = x.ArrivalAirport.Name,
                     DestinationCity = x.ArrivalAirport.City.Name,
+                    Id = x.Id
                 })
                 .ToListAsync();
 

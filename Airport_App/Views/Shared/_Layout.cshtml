@@ -25,15 +25,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search</a>
                         </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Filter">Filter flights</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddData">Add new data</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="EditData">Edit data</a>
-                        </li>
+                        }
+                        
+                        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddData">Add new data</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="EditData">Edit data</a>
+                            </li>
+
+                        }
+
                        
                     </ul>
                     <partial name="_LoginPartial" />

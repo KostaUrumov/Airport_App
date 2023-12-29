@@ -1,4 +1,5 @@
 using Airport_App_Core.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airport_App.Controllers
@@ -25,6 +26,7 @@ namespace Airport_App.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult EditData()
         {
             return View();

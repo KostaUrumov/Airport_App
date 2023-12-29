@@ -52,6 +52,7 @@ else
                                 <th scope="col">Price</th>
                                 <th scope="col">Departure</th>
                                 <th scope="col">Arrive</th>
+                                <th scope="col">Buy</th>
                             </tr>
                         </thead>
                         @for(int j = 0; j< Model[i].Flights.Count; j ++)
@@ -66,6 +67,9 @@ else
                                     <td>@Model[i].Flights[j].Price $</td>
                                     <td>@Model[i].Flights[j].StartDate</td>
                                     <td>@Model[i].Flights[j].ArriveDate</td>
+                                    <td>
+                                        <a asp-controller="Flight" asp-action="BuyTickets" asp-route-id="@Model[i].Flights[j].Id" class="btn btn-warning">Buy</a>
+                                    </td>
                                    </tr>
                         </tbody>
                         }

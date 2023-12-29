@@ -1,5 +1,6 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.CityModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airport_App.Controllers
@@ -18,6 +19,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> AddNewCity()
         {
             AddNewCityModel city = new AddNewCityModel()
@@ -28,6 +31,8 @@ namespace Airport_App.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> AddNewCity(AddNewCityModel city)
         {
             if (!ModelState.IsValid)
@@ -52,6 +57,9 @@ namespace Airport_App.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
+
         public async Task<IActionResult> Edit(int id)
         {
             var result = await cityService.FindCity(id);
@@ -59,6 +67,9 @@ namespace Airport_App.Controllers
             return View(result);
         }
 
+        [HttpPost]
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Edit (AddNewCityModel model)
         {
             if (!ModelState.IsValid)
@@ -69,6 +80,8 @@ namespace Airport_App.Controllers
             return RedirectToAction(nameof(AllCities));
         }
 
+        [Authorize]
+        [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Delete (int id)
         {
             await cityService.Delete(id);

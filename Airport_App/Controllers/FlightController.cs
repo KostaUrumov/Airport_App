@@ -1,5 +1,6 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.FlightModels;
+using Airport_App_Core.Models.TicketModels;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -197,6 +198,21 @@ namespace Airport_App.Controllers
             
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult BuyTickets(int id)
+        {
+            NumberTicketsModel numberPassengers = new NumberTicketsModel();
+            numberPassengers.FlightId = id;
+            return View(numberPassengers);
+        }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult BuyTickets(NumberTicketsModel numberPassengers)
+        {
+            
+            return RedirectToAction("AddPassengers", "Passenger", numberPassengers);
+        }
     }
 }

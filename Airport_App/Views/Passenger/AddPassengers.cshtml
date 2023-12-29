@@ -1,0 +1,50 @@
+﻿@model List<BuyTicketsModel>
+@{
+    ViewData["Title"] = "Add passengers";
+}
+
+<form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+            </tr>
+        </thead>
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            int number = @i + 1;
+            <tbody>
+                <tr>
+                    <td>@number</td>
+                    <td>
+
+                        <input asp-for="@Model[i].Name" class="form-control" autocomplete="model" aria-required="true" />
+                        <label asp-for="@Model[i].Name"></label>
+                        <span asp-validation-for="@Model[i].Name" class="text-danger"></span>
+
+                    </td>
+                    <td>
+
+                        <input asp-for="@Model[i].Age" class="form-control" autocomplete="model" aria-required="true" />
+                        <label asp-for="@Model[i].Age"></label>
+                        <span asp-validation-for="@Model[i].Age" class="text-danger"></span>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        }
+    </table>
+
+
+
+
+    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Add</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

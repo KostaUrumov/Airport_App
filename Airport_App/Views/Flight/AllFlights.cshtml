@@ -19,9 +19,8 @@
 
     </div>
 }
-else
+@if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
 {
-
     <table class="table">
         <thead>
             <tr>
@@ -57,6 +56,42 @@ else
                     <td>
                         <a asp-controller="Flight" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Delete</a>
                     </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+    
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Departure City</th>
+                <th scope="col">Departure Airport</th>
+                <th scope="col">Arrival city</th>
+                <th scope="col">Arrival Airport</th>
+                <th scope="col">Price</th>
+                <th scope="col">Departure</th>
+                <th scope="col">Arrive</th>
+            </tr>
+        </thead>
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            int number = @i + 1;
+            <tbody>
+                <tr>
+                    <td>@number</td>
+                    <td>@Model[i].DepartureCity</td>
+                    <td>@Model[i].DepartureAirport.ToString()</td>
+                    <td>@Model[i].DestinationCity</td>
+                    <td>@Model[i].DestinationAirport.ToString()</td>
+                    <td>@Model[i].Price $</td>
+                    <td>@Model[i].StartDate</td>
+                    <td>@Model[i].ArriveDate</td>
                 </tr>
             </tbody>
         }
