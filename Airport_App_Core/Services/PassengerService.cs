@@ -14,7 +14,7 @@ namespace Airport_App_Core.Services
             data = _data; 
         }
 
-        public async Task AddPassengersToFlight(List<BuyTicketsModel> passengers)
+        public List<Passenger> AddPassengersToFlight(List<BuyTicketsModel> passengers)
         {
             List<Passenger> newPassengers = new List<Passenger>();
             for (int i = 0; i < passengers.Count; i++)
@@ -34,8 +34,39 @@ namespace Airport_App_Core.Services
                 newPassengers.Add(one);
             }
 
-            data.AddRange(newPassengers);
-            await data.SaveChangesAsync();
+            return newPassengers;
+        }
+
+        public List<Passenger> ReturnNewPassengers(List<Passenger> passengers, int id)
+        {
+            
+            List<FlightPassenger> fpToAdd = new List<FlightPassenger>();
+            foreach (var item in passengers)
+            {
+                foreach (var currentPassengers in data.Passengers)
+                {
+                    if (item.FirstName == currentPassengers.FirstName
+                        && item.LastName == currentPassengers.LastName)
+                    {
+                        FlightPassenger newFP = new FlightPassenger()
+                        {
+                            FlightId = id,
+                            PassengerId = currentPassengers.Id
+                        };
+
+                        fpToAdd.Add(newFP);
+                        passengers.Remove(item);
+                    }
+                      
+                }
+                
+            }
+
+            data.AddRange(fpToAdd);
+            data.SaveChanges();
+
+            return passengers;
+
         }
     }
 }

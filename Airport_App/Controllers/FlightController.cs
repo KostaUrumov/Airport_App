@@ -200,10 +200,11 @@ namespace Airport_App.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult BuyTickets(int id)
+        public async Task< IActionResult> BuyTickets(int id)
         {
             NumberTicketsModel numberPassengers = new NumberTicketsModel();
             numberPassengers.FlightId = id;
+            numberPassengers.Flight.Add(await flightsService.GetFlight(id));
             return View(numberPassengers);
         }
 

@@ -3,7 +3,9 @@
     ViewData["Title"] = "Add passengers";
 }
 
-<form>
+<form id="registerForm" asp-route-returnUrl="" method="post">
+    <h3 class="text-center">@ViewBag.title</h3>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <table class="table">
         <thead>
             <tr>
@@ -31,6 +33,17 @@
                         <input asp-for="@Model[i].Age" class="form-control" autocomplete="model" aria-required="true" />
                         <label asp-for="@Model[i].Age"></label>
                         <span asp-validation-for="@Model[i].Age" class="text-danger"></span>
+
+                    </td>
+                    <td>
+                        <label asp-for="@Model[i].FlightId" class="form-label"> Flight Code</label>
+                        <select asp-for="@Model[i].FlightId" class="form-control">
+                            @foreach (var airport in Model[i].Flight)
+                            {
+                                <option value="@airport.Id">@airport.FlightNumber</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model[i].FlightId" class="text-danger"></span>
 
                     </td>
 

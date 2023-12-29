@@ -141,6 +141,11 @@ namespace Airport_App_Core.Services
             return flight;
         }
 
+        public async Task<Flight> GetFlight(int id)
+        {
+            return await data.Flights.FirstAsync(x => x.Id == id);
+        }
+
         public async Task SaveChangesAsync(AddNewFlightModel addFlight)
         {
             var flight = await data.Flights.FirstAsync(x => x.Id == addFlight.Id);
