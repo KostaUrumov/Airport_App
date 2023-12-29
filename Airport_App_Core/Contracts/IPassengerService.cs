@@ -6,6 +6,6 @@ namespace Airport_App_Core.Contracts
     public interface IPassengerService
     {
         public List<Passenger> AddPassengersToFlight(List<BuyTicketsModel> passengers);
-        public List<Passenger> ReturnNewPassengers(List<Passenger> passengers, int id);
+        Task ReturnNewPassengers(List<Passenger> passengers, int id);
     }
 }

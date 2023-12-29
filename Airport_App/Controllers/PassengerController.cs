@@ -41,7 +41,8 @@ namespace Airport_App.Controllers
         public async Task<IActionResult> AddPassengers(List<BuyTicketsModel> passengers)
         {
             var passengersToAdd = passengerService.AddPassengersToFlight(passengers);
-            var newPassengers = passengerService.ReturnNewPassengers(passengersToAdd, passengers[0].FlightId);
+
+            await passengerService.ReturnNewPassengers(passengersToAdd, passengers[0].FlightId);
             
             return RedirectToAction("Index", "Home");
         }

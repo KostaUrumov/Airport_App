@@ -37,36 +37,48 @@ namespace Airport_App_Core.Services
             return newPassengers;
         }
 
-        public List<Passenger> ReturnNewPassengers(List<Passenger> passengers, int id)
+        public async Task ReturnNewPassengers(List<Passenger> passengers, int id)
         {
-            
-            List<FlightPassenger> fpToAdd = new List<FlightPassenger>();
+            List<FlightPassenger> listed = new List<FlightPassenger>();
+            List<Passenger> oldPass = new List<Passenger>();
+            List<Passenger> newPassengers = new List<Passenger>();
+
             foreach (var item in passengers)
             {
-                foreach (var currentPassengers in data.Passengers)
+                foreach (var pass in data.Passengers)
                 {
-                    if (item.FirstName == currentPassengers.FirstName
-                        && item.LastName == currentPassengers.LastName)
+                    if (pass.FirstName == item.FirstName &&
+                        pass.LastName == item.LastName)
                     {
-                        FlightPassenger newFP = new FlightPassenger()
-                        {
-                            FlightId = id,
-                            PassengerId = currentPassengers.Id
-                        };
-
-                        fpToAdd.Add(newFP);
-                        passengers.Remove(item);
+                        FlightPassenger newFP = new FlightPassenger();
+                        newFP.FlightId = id;
+                        newFP.PassengerId = pass.Id;
+                        listed.Add(newFP);
+                        oldPass.Add(pass);
+                        break;
                     }
-                      
+                    
                 }
-                
+                Passenger jj = new Passenger()
+                {
+                    Age = item.Age,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    
+                };
+                jj.FlightsPassengers.Add(new FlightPassenger()
+                {
+                    FlightId = id
+                });
+
+                newPassengers.Add(jj);
             }
 
-            data.AddRange(fpToAdd);
-            data.SaveChanges();
+            
 
-            return passengers;
-
+            data.AddRange(listed);
+            data.AddRange(newPassengers);
+            await data.SaveChangesAsync();
         }
     }
 }
