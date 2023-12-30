@@ -7,5 +7,6 @@ namespace Airport_App_Core.Contracts
     {
         public List<Passenger> AddPassengersToFlight(List<BuyTicketsModel> passengers);
         Task ReturnNewPassengers(List<Passenger> passengers, int id);
+        Task <bool> CheckIfExist(List<Passenger> passengers, int id);
     }
 }

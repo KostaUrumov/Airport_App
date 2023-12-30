@@ -2,6 +2,7 @@
 using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.TicketModels;
 using Airport_App_Structure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Airport_App_Core.Services
 {
@@ -37,11 +38,34 @@ namespace Airport_App_Core.Services
             return newPassengers;
         }
 
+        public  async Task< bool> CheckIfExist(List<Passenger> passengers, int id)
+        {
+            List<Passenger> passengersAlreadyIn = await data
+                .Passengers
+                .Where(x=> x.FlightsPassengers.Any(x=>x.FlightId == id))
+                .ToListAsync();
+
+            foreach (var newOnes in passengers)
+            {
+                foreach (var alreadyIn in passengersAlreadyIn)
+                {
+                    if (alreadyIn.FirstName == newOnes.FirstName &&
+                        alreadyIn.LastName == newOnes.LastName)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public async Task ReturnNewPassengers(List<Passenger> passengers, int id)
         {
             List<FlightPassenger> listed = new List<FlightPassenger>();
             List<Passenger> oldPass = new List<Passenger>();
             List<Passenger> newPassengers = new List<Passenger>();
+            int done = 0;
 
             foreach (var item in passengers)
             {
@@ -55,9 +79,14 @@ namespace Airport_App_Core.Services
                         newFP.PassengerId = pass.Id;
                         listed.Add(newFP);
                         oldPass.Add(pass);
+                        done++;
                         break;
                     }
                     
+                }
+                if (done > 0)
+                {
+                    continue;
                 }
                 Passenger jj = new Passenger()
                 {

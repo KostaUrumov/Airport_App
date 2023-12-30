@@ -64,7 +64,8 @@ namespace Airport_App_Core.Services
                     DestinationCity = x.ArrivalAirport.City.Name,
                     Price = x.Price.ToString(),
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
-                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
+                    Id = x.Id
 
                 })
                 .ToListAsync();
@@ -125,7 +126,8 @@ namespace Airport_App_Core.Services
                     DestinationCity = x.ArrivalAirport.City.Name,
                     Price = x.Price.ToString(),
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
-                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
+                    Id = x.Id
 
                 })
                 .ToListAsync();
@@ -189,7 +191,8 @@ namespace Airport_App_Core.Services
                     DestinationCity = x.ArrivalAirport.City.Name,
                     Price = x.Price.ToString(),
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
-                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+                    StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
+                    Id = x.Id
 
                 })
                 .ToListAsync();

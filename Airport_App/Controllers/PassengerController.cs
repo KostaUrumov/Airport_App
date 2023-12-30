@@ -1,9 +1,7 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.TicketModels;
-using Airport_App_Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace Airport_App.Controllers
 {
@@ -41,7 +39,11 @@ namespace Airport_App.Controllers
         public async Task<IActionResult> AddPassengers(List<BuyTicketsModel> passengers)
         {
             var passengersToAdd = passengerService.AddPassengersToFlight(passengers);
-
+            bool isAnyPassengerThere = await passengerService.CheckIfExist(passengersToAdd, passengers[0].FlightId);
+            if (isAnyPassengerThere == true)
+            {
+                return RedirectToAction("Search", "Flight");
+            }
             await passengerService.ReturnNewPassengers(passengersToAdd, passengers[0].FlightId);
             
             return RedirectToAction("Index", "Home");

@@ -101,7 +101,8 @@ namespace Airport_App_Core.Services
                         DestinationCity = m.Flight.DepartureAirport.City.Name,
                         Price = m.Flight.Price.ToString(),
                         ArriveDate = m.Flight.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
-                        StartDate = m.Flight.DepartureTime.ToString("dd/MM/yyyy HH/mm")
+                        StartDate = m.Flight.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
+                        Id = x.Id
                     })
                     
                 })
