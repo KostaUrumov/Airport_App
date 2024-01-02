@@ -11,5 +11,6 @@ namespace Airport_App_Core.Contracts
         Task<AddNewCountryModel> FindCountry(int id);
         Task SaveChangesAsync(AddNewCountryModel model);
         Task Delete(int id);
+        public bool CheckIfExist(AddNewCountryModel model);
     }
 }

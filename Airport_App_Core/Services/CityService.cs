@@ -49,9 +49,10 @@ namespace Airport_App_Core.Services
         public bool CheckIfExist(AddNewCityModel city)
         {
             var find = data.Cities
-                .Where(x=> x.Name == city.Name
+                .FirstOrDefaultAsync(x => x.Name == city.Name
                     && x.CountryId == city.CountryId);
-            if (find != null)
+                
+            if (find.Result != null)
             {
                 return true;
             }

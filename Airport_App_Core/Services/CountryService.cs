@@ -56,6 +56,18 @@ namespace Airport_App_Core.Services
 
         }
 
+        public bool CheckIfExist(AddNewCountryModel model)
+        {
+            var find = data
+                .Countries.FirstOrDefaultAsync(c => c.Name == model.Name);
+            if (find.Result != null)
+            {
+                return true;
+            }
+            return false;
+            
+        }
+
         public async Task Delete(int id)
         {
             var result = await data.Countries.FirstAsync(c => c.Id == id);

@@ -39,6 +39,11 @@ namespace Airport_App.Controllers
                 return RedirectToAction(nameof(AddNewCountry));
             }
 
+            var isThere = countryService.CheckIfExist(model);
+            if (isThere == true)
+            {
+                return RedirectToAction(nameof(AddNewCountry));
+            }
             await countryService.AddNewCountry(model);
 
             return RedirectToAction(nameof(AllCountries));

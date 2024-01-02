@@ -41,7 +41,7 @@ namespace Airport_App.Controllers
             }
 
             var isThere = cityService.CheckIfExist(city);
-            if (isThere == false)
+            if (isThere == true)
             {
                 return RedirectToAction(nameof(AddNewCity));
             }
