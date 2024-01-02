@@ -139,7 +139,12 @@ namespace Airport_App_Core.Services
         {
             var result = await data.Flights.FirstAsync(x => x.Id == id);
             AddNewFlightModel flight = new AddNewFlightModel();
+            flight.Price = result.Price;
+            flight.FlightNumber = result.FlightNumber;
+            flight.ArivalTime = result.ArivalTime;
+            flight.DepartureTime = result.DepartureTime;
             flight.Id = result.Id;
+            flight.TotalTickets = result.TotalTickets;
             return flight;
         }
 

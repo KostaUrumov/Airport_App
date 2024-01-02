@@ -76,6 +76,11 @@ namespace Airport_App.Controllers
             {
                 return RedirectToAction(nameof(AllCities));
             }
+            var isThere = cityService.CheckIfExist(model);
+            if (isThere == true)
+            {
+                return RedirectToAction(nameof(AddNewCity));
+            }
             await cityService.SaveChangesAsync(model);
             return RedirectToAction(nameof(AllCities));
         }

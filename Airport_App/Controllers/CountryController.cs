@@ -78,6 +78,13 @@ namespace Airport_App.Controllers
             {
                 return RedirectToAction(nameof(AllCountries));
             }
+
+            var isThere = countryService.CheckIfExist(model);
+            if (isThere == true)
+            {
+                return RedirectToAction(nameof(AllCountries));
+            }
+
             await countryService.SaveChangesAsync(model);
             return RedirectToAction(nameof(AllCountries));
         }

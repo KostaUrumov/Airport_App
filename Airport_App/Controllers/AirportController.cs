@@ -75,6 +75,12 @@ namespace Airport_App.Controllers
                 return RedirectToAction(nameof(AllAirports));
             }
 
+            var isThere = airportService.CheckIfExist(model);
+            if (isThere == true)
+            {
+                return RedirectToAction(nameof(AllAirports));
+            }
+
             await airportService.SaveChangesAsync(model);
             return RedirectToAction(nameof(AllAirports));
         }

@@ -64,7 +64,6 @@ namespace Airport_App.Controllers
             company.Countries = await countryService.AddAllCountries();
             return View(company);
         }
-
         
 
         [HttpPost]
@@ -73,6 +72,16 @@ namespace Airport_App.Controllers
 
         public async Task<IActionResult> Edit(AddNewCompanyModel company)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(AllCompanies));
+            }
+            bool alreadyExist = manufacturerServce.CheckIfExist(company);
+            if (alreadyExist == true)
+            {
+                return RedirectToAction(nameof(AllCompanies));
+            }
+
             await manufacturerServce.SaveChangesAsync(company);
             return RedirectToAction(nameof(AllCompanies));
         }

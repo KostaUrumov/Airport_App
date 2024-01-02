@@ -121,15 +121,16 @@ namespace Airport_App.Controllers
         [Authorize(Policy = "AdminsOnly")]
         public async Task<IActionResult> Edit(int id)
         {
-            DateTime depart = DateTime.UtcNow;
-            DateTime arrive = depart.AddMinutes(60);
+            
 
             var result  = await flightsService.FindFlight(id);
+
             result.Departures = await airportService.AddAllAirports();
             result.ArrivalAirport = await airportService.AddAllAirports();
-            result.DepartureTime = DateTime.Parse(depart.ToString("dd-MM-yyyy, HH:mm"));
-            result.ArivalTime = DateTime.Parse(arrive.ToString("dd-MM-yyyy, HH:mm"));
+            //result.DepartureTime = DateTime.Parse(depart.ToString("dd-MM-yyyy, HH:mm"));
+            //result.ArivalTime = DateTime.Parse(arrive.ToString("dd-MM-yyyy, HH:mm"));
             result.AirplaneModel = await airplaneService.AddPlanes();
+            
             return View(result);
         }
 
