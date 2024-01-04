@@ -10,6 +10,10 @@ namespace Airport_App_Core.Models.FlightModels
         public IEnumerable<City> DepartureCity { get; set; } = new List<City>();
 
         [Required]
+        [DataType(DataType.Date)]
+        public DateTime DepartureDate { get; set; }
+
+        [Required]
         public int ArrivalCityId { get; set; }
         public IEnumerable<City> ArrivalCity { get; set; } = new List<City>();
     }

@@ -45,7 +45,9 @@ namespace Airport_App.Controllers
             SearchFlightModel model = new SearchFlightModel()
             {
                 DepartureCity = await cityService.GetAllCities(),
-                ArrivalCity = await cityService.GetAllCities()
+                ArrivalCity = await cityService.GetAllCities(),
+                DepartureDate = DateTime.UtcNow
+
             };
             return View(model);
         }
@@ -116,6 +118,7 @@ namespace Airport_App.Controllers
             return View(result); 
         }
 
+        
         [HttpGet]
         [Authorize]
         [Authorize(Policy = "AdminsOnly")]

@@ -187,7 +187,8 @@ namespace Airport_App_Core.Services
             List<DisplayFlightModel> flight = await data
                 .Flights
                 .Where(x => x.DepartureAirport.City.Id == model.DepartureCityId
-                           && x.ArrivalAirport.City.Id == model.ArrivalCityId)
+                           && x.ArrivalAirport.City.Id == model.ArrivalCityId
+                           && x.DepartureTime.Date == model.DepartureDate)
                 .Select(x => new DisplayFlightModel
                 {
                     DepartureCity = x.DepartureAirport.City.Name,
