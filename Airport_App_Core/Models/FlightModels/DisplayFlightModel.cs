@@ -14,5 +14,7 @@
         public string StartDate { get; set; } = null!;
 
         public string ArriveDate { get; set; } = null!;
+
+        public int AvailableTickets { get; set; }
     }
 }

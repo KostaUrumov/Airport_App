@@ -1,6 +1,7 @@
 ﻿using Aiport_App_Structure.Models;
 using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.FlightModels;
+using Airport_App_Core.Models.TicketModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -65,7 +66,8 @@ namespace Airport_App_Core.Services
                     Price = x.Price.ToString(),
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
-                    Id = x.Id
+                    Id = x.Id,
+                    AvailableTickets = x.TotalTickets
 
                 })
                 .ToListAsync();
@@ -85,7 +87,8 @@ namespace Airport_App_Core.Services
                     Price = f.Price.ToString(),
                     ArriveDate = f.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = f.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
-                    Id = f.Id
+                    Id = f.Id,
+                    AvailableTickets = f.TotalTickets
 
                 })
                 .ToListAsync();
@@ -127,7 +130,8 @@ namespace Airport_App_Core.Services
                     Price = x.Price.ToString(),
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
-                    Id = x.Id
+                    Id = x.Id,
+                    AvailableTickets = x.TotalTickets
 
                 })
                 .ToListAsync();
@@ -151,6 +155,13 @@ namespace Airport_App_Core.Services
         public async Task<Flight> GetFlight(int id)
         {
             return await data.Flights.FirstAsync(x => x.Id == id);
+        }
+
+        public async Task ReduceAvailableTickets(NumberTicketsModel numberPassengers)
+        {
+            var flight = await data.Flights.FirstAsync(f => f.Id == numberPassengers.FlightId);
+            flight.TotalTickets -= numberPassengers.NumberOfTickets;
+           await data.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync(AddNewFlightModel addFlight)
@@ -198,7 +209,8 @@ namespace Airport_App_Core.Services
                     Price = x.Price.ToString(),
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
-                    Id = x.Id
+                    Id = x.Id,
+                    AvailableTickets = x.TotalTickets
 
                 })
                 .ToListAsync();
@@ -219,7 +231,8 @@ namespace Airport_App_Core.Services
                     DepartureCity = x.DepartureAirport.City.Name,
                     DestinationAirport = x.ArrivalAirport.Name,
                     DestinationCity = x.ArrivalAirport.City.Name,
-                    Id = x.Id
+                    Id = x.Id,
+                    AvailableTickets = x.TotalTickets
                 })
                 .ToListAsync();
 

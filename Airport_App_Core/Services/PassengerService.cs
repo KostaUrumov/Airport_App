@@ -12,10 +12,59 @@ namespace Airport_App_Core.Services
 
         public PassengerService(AirportDb _data)
         {
-            data = _data; 
+            data = _data;
         }
 
-        public List<Passenger> AddPassengersToFlight(List<BuyTicketsModel> passengers)
+        public async Task AddToFlight(Passenger passenger, int flightId)
+        {
+            Passenger findPassenger = await data
+                .Passengers
+                .FirstAsync(
+                x => x.FirstName == passenger.FirstName
+                && x.LastName == passenger.LastName
+                && x.Age == passenger.Age);
+
+            findPassenger.FlightsPassengers.Add(new FlightPassenger()
+            {
+                FlightId = flightId
+            });
+            await data.SaveChangesAsync();
+
+        }
+
+        public bool CheckIfPassengerIsInThisFlight(Passenger passenger, int flightId)
+        {
+            var passen = data
+                .Passengers
+                .First(
+                x => x.FirstName == passenger.FirstName
+                && x.LastName == passenger.LastName
+                && x.Age == passenger.Age);
+
+            var flightIsThere = data
+                .FlightsPassengers
+                .FirstOrDefault(x => x.FlightId == flightId && x.PassengerId == passen.Id);
+
+            if (flightIsThere != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task CreateAndSaveNewPassengers(Passenger passenger, int flightId)
+        {
+            passenger.FlightsPassengers.Add(new FlightPassenger()
+            {
+                FlightId = flightId
+            });
+
+            data.AddRange(passenger);
+            await data.SaveChangesAsync();
+
+        }
+
+        public List<Passenger> CreatePassengers(List<BuyTicketsModel> passengers)
         {
             List<Passenger> newPassengers = new List<Passenger>();
             for (int i = 0; i < passengers.Count; i++)
@@ -27,87 +76,26 @@ namespace Airport_App_Core.Services
                 one.Age = passengers[i].Age;
                 one.FirstName = names[0];
                 one.LastName = names[1];
-
-                one.FlightsPassengers.Add(new FlightPassenger()
-                {
-                    FlightId = passengers[i].FlightId
-                });
                 newPassengers.Add(one);
             }
 
             return newPassengers;
         }
 
-        public  async Task< bool> CheckIfExist(List<Passenger> passengers, int id)
+        public bool IsPassengerAlreadyIn(Passenger passenger)
         {
-            List<Passenger> passengersAlreadyIn = await data
+            var found = data
                 .Passengers
-                .Where(x=> x.FlightsPassengers.Any(x=>x.FlightId == id))
-                .ToListAsync();
-
-            foreach (var newOnes in passengers)
+                .FirstOrDefault(
+                x => x.FirstName == passenger.FirstName
+                && x.LastName == passenger.LastName
+                && x.Age == passenger.Age);
+            if (found != null)
             {
-                foreach (var alreadyIn in passengersAlreadyIn)
-                {
-                    if (alreadyIn.FirstName == newOnes.FirstName &&
-                        alreadyIn.LastName == newOnes.LastName)
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
 
             return false;
-        }
-
-        public async Task ReturnNewPassengers(List<Passenger> passengers, int id)
-        {
-            List<FlightPassenger> listed = new List<FlightPassenger>();
-            List<Passenger> oldPass = new List<Passenger>();
-            List<Passenger> newPassengers = new List<Passenger>();
-            int done = 0;
-
-            foreach (var item in passengers)
-            {
-                foreach (var pass in data.Passengers)
-                {
-                    if (pass.FirstName == item.FirstName &&
-                        pass.LastName == item.LastName)
-                    {
-                        FlightPassenger newFP = new FlightPassenger();
-                        newFP.FlightId = id;
-                        newFP.PassengerId = pass.Id;
-                        listed.Add(newFP);
-                        oldPass.Add(pass);
-                        done++;
-                        break;
-                    }
-                    
-                }
-                if (done > 0)
-                {
-                    continue;
-                }
-                Passenger jj = new Passenger()
-                {
-                    Age = item.Age,
-                    FirstName = item.FirstName,
-                    LastName = item.LastName,
-                    
-                };
-                jj.FlightsPassengers.Add(new FlightPassenger()
-                {
-                    FlightId = id
-                });
-
-                newPassengers.Add(jj);
-            }
-
-            
-
-            data.AddRange(listed);
-            data.AddRange(newPassengers);
-            await data.SaveChangesAsync();
         }
     }
 }

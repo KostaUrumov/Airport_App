@@ -214,9 +214,9 @@ namespace Airport_App.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult BuyTickets(NumberTicketsModel numberPassengers)
+        public async Task<IActionResult> BuyTickets(NumberTicketsModel numberPassengers)
         {
-            
+            await flightsService.ReduceAvailableTickets(numberPassengers);
             return RedirectToAction("AddPassengers", "Passenger", numberPassengers);
         }
     }

@@ -34,6 +34,7 @@ else
                 <th scope="col">Arrival city</th>
                 <th scope="col">Arrival Airport</th>
                 <th scope="col">Price</th>
+                <th scope="col">Available Tickets</th>
                 <th scope="col">Departure</th>
                 <th scope="col">Arrive</th>
                 <th scope="col">Buy</th>
@@ -51,6 +52,7 @@ else
                     <td>@Model[i].DestinationCity</td>
                     <td>@Model[i].DestinationAirport.ToString()</td>
                     <td>@Model[i].Price $</td>
+                    <td>@Model[i].AvailableTickets</td>
                     <td>@Model[i].StartDate</td>
                     <td>@Model[i].ArriveDate</td>
                     <td>

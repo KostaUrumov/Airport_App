@@ -38,14 +38,29 @@ namespace Airport_App.Controllers
         [Authorize]
         public async Task<IActionResult> AddPassengers(List<BuyTicketsModel> passengers)
         {
-            var passengersToAdd = passengerService.AddPassengersToFlight(passengers);
-            bool isAnyPassengerThere = await passengerService.CheckIfExist(passengersToAdd, passengers[0].FlightId);
-            if (isAnyPassengerThere == true)
+            var passengersToAdd = passengerService.CreatePassengers(passengers);
+            foreach (var pass in passengersToAdd)
             {
-                return RedirectToAction("Search", "Flight");
+                var isAlreadyIn = passengerService.IsPassengerAlreadyIn(pass);
+                if (isAlreadyIn == true)
+                {
+                    var passengerIsInFlightAlready = passengerService.CheckIfPassengerIsInThisFlight(pass, passengers[0].FlightId);
+                    if (passengerIsInFlightAlready == true)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        await passengerService.AddToFlight(pass, passengers[0].FlightId);
+                    }
+                }
+                else
+                {
+                    await passengerService.CreateAndSaveNewPassengers(pass, passengers[0].FlightId);
+                }
             }
-            await passengerService.ReturnNewPassengers(passengersToAdd, passengers[0].FlightId);
-            
+
+
             return RedirectToAction("Index", "Home");
         }
 
