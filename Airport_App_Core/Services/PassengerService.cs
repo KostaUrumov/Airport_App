@@ -17,6 +17,11 @@ namespace Airport_App_Core.Services
 
         public async Task AddToFlight(Passenger passenger, int flightId)
         {
+            Flight fli = await data
+                .Flights
+                .FirstAsync(f => f.Id == flightId);
+            fli.TotalTickets -= 1;
+
             Passenger findPassenger = await data
                 .Passengers
                 .FirstAsync(
@@ -28,6 +33,7 @@ namespace Airport_App_Core.Services
             {
                 FlightId = flightId
             });
+
             await data.SaveChangesAsync();
 
         }
@@ -54,6 +60,11 @@ namespace Airport_App_Core.Services
 
         public async Task CreateAndSaveNewPassengers(Passenger passenger, int flightId)
         {
+            Flight fli = await data
+                .Flights
+                .FirstAsync(f => f.Id == flightId);
+            fli.TotalTickets -= 1;
+
             passenger.FlightsPassengers.Add(new FlightPassenger()
             {
                 FlightId = flightId

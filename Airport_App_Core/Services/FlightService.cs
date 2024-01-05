@@ -157,12 +157,6 @@ namespace Airport_App_Core.Services
             return await data.Flights.FirstAsync(x => x.Id == id);
         }
 
-        public async Task ReduceAvailableTickets(NumberTicketsModel numberPassengers)
-        {
-            var flight = await data.Flights.FirstAsync(f => f.Id == numberPassengers.FlightId);
-            flight.TotalTickets -= numberPassengers.NumberOfTickets;
-           await data.SaveChangesAsync();
-        }
 
         public async Task SaveChangesAsync(AddNewFlightModel addFlight)
         {
