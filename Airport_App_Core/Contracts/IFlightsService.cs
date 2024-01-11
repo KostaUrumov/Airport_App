@@ -1,5 +1,6 @@
 ﻿using Aiport_App_Structure.Models;
 using Airport_App_Core.Models.FlightModels;
+using Airport_App_Core.Models.TicketModels;
 
 namespace Airport_App_Core.Contracts
 {
@@ -16,6 +17,7 @@ namespace Airport_App_Core.Contracts
         public bool CheckAirports(AddNewFlightModel addFlight);
         public bool CheckDates(AddNewFlightModel addFlight);
         Task<Flight>GetFlight(int id);
+        public bool CheckIfThereAreEnoughTickets(NumberTicketsModel numberPassengers);
 
     }
 }

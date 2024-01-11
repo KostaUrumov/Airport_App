@@ -48,6 +48,10 @@ namespace Airport_App_Core.Services
         public async Task<bool> LogInAsync(LogInViewModel model)
         {
             var findUser = data.Users.FirstOrDefault(x => x.UserName == model.Username);
+            if (findUser== null)
+            {
+                return false;
+            }
             string savedPasswordHash = findUser.PasswordHash;
 
             byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);

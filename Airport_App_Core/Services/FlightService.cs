@@ -116,6 +116,20 @@ namespace Airport_App_Core.Services
 
         }
 
+        public bool CheckIfThereAreEnoughTickets(NumberTicketsModel numberPassengers)
+        {
+            var flight = data
+                .Flights
+                .First(x => x.Id == numberPassengers.FlightId);
+
+            if (flight.TotalTickets < numberPassengers.NumberOfTickets)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<List<DisplayFlightModel>> FilterByDepartureAirport(int airportId)
         {
             List<DisplayFlightModel> flights = await data
@@ -156,7 +170,6 @@ namespace Airport_App_Core.Services
         {
             return await data.Flights.FirstAsync(x => x.Id == id);
         }
-
 
         public async Task SaveChangesAsync(AddNewFlightModel addFlight)
         {

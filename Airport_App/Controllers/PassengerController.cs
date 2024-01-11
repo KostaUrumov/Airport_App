@@ -2,6 +2,7 @@
 using Airport_App_Core.Models.TicketModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Airport_App.Controllers
 {
@@ -24,6 +25,7 @@ namespace Airport_App.Controllers
         public async Task<IActionResult> AddPassengers(NumberTicketsModel numberPassengers)
         {
             List<BuyTicketsModel> passengers = new List<BuyTicketsModel>();
+            
             for(int i = 0; i< numberPassengers.NumberOfTickets; i++)
             {
                 BuyTicketsModel models = new BuyTicketsModel();
@@ -38,6 +40,7 @@ namespace Airport_App.Controllers
         [Authorize]
         public async Task<IActionResult> AddPassengers(List<BuyTicketsModel> passengers)
         {
+           
             var passengersToAdd = passengerService.CreatePassengers(passengers);
             foreach (var pass in passengersToAdd)
             {

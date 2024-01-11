@@ -1,6 +1,7 @@
 ﻿using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.FlightModels;
 using Airport_App_Core.Models.TicketModels;
+using Airport_App_Core.Services;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -206,6 +207,7 @@ namespace Airport_App.Controllers
         [Authorize]
         public async Task< IActionResult> BuyTickets(int id)
         {
+
             NumberTicketsModel numberPassengers = new NumberTicketsModel();
             numberPassengers.FlightId = id;
             numberPassengers.Flight.Add(await flightsService.GetFlight(id));
@@ -216,6 +218,11 @@ namespace Airport_App.Controllers
         [Authorize]
         public IActionResult BuyTickets(NumberTicketsModel numberPassengers)
         {
+            var available = flightsService.CheckIfThereAreEnoughTickets(numberPassengers);
+            if (available == false)
+            {
+                return RedirectToAction(nameof(BuyTickets), numberPassengers.FlightId);
+            }
             return RedirectToAction("AddPassengers", "Passenger", numberPassengers);
         }
     }
