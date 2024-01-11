@@ -19,37 +19,16 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="LastFive">Flights</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search</a>
-                        </li>
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Filter">Filter flights</a>
-                            </li>
-                        }
-
+                        
+                        
                         @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddData">Add new data</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="EditData">Edit data</a>
-                            </li>
-
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Manager" asp-controller="Passenger" asp-action="Index">Passenger</a>
                             </li>
-
-
                         }
 
-
+                       
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
