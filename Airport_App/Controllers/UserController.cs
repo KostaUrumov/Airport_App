@@ -70,7 +70,7 @@ namespace Airport_App.Controllers
                 return RedirectToAction(nameof(Login));
             }
             return RedirectToAction("Index", "Home");
-
         }
+
     }
 }
