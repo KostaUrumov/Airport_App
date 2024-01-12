@@ -1,0 +1,45 @@
+﻿@model DisplayFlightRevenewModel
+@{
+    ViewData["Title"] = "Result";
+}
+
+<div class="text-center">
+    <h3>Revenew</h3>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Flight number</th>
+            <th scope="col">Departure City</th>
+            <th scope="col">Depapture Airport</th>
+            <th scope="col">Arrival city</th>
+            <th scope="col">Arrival Airport</th>
+            <th scope="col">Tickets sold</th>
+            <th scope="col">Total Income</th>
+            
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>@Model.FlightNumber</td>
+            <td>@Model.DepartureCity</td>
+            <td>@Model.DepartureAirport</td>
+            <td>@Model.ArrivalCity</td>
+            <td>@Model.ArrivalAirport</td>
+            <td>@Model.TotalTicketsSold</td>
+            <td>@Model.Money $</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+

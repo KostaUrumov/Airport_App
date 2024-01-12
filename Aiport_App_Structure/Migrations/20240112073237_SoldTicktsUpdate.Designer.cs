@@ -4,6 +4,7 @@ using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aiport_App_Structure.Migrations
 {
     [DbContext(typeof(AirportDb))]
-    partial class AirportDbModelSnapshot : ModelSnapshot
+    [Migration("20240112073237_SoldTicktsUpdate")]
+    partial class SoldTicktsUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,7 +304,7 @@ namespace Aiport_App_Structure.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("SoldTickets")
+                    b.Property<int?>("SoldTickets")
                         .HasColumnType("int");
 
                     b.Property<int>("TotalTickets")
@@ -328,7 +331,6 @@ namespace Aiport_App_Structure.Migrations
                             DepartureTime = new DateTime(2024, 1, 12, 8, 30, 52, 0, DateTimeKind.Unspecified),
                             FlightNumber = "BO78P0",
                             Price = 87.21m,
-                            SoldTickets = 0,
                             TotalTickets = 164
                         },
                         new
@@ -341,7 +343,6 @@ namespace Aiport_App_Structure.Migrations
                             DepartureTime = new DateTime(2024, 1, 12, 8, 30, 52, 0, DateTimeKind.Unspecified),
                             FlightNumber = "LAU781",
                             Price = 887.21m,
-                            SoldTickets = 0,
                             TotalTickets = 251
                         });
                 });

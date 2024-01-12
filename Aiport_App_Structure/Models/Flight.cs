@@ -35,6 +35,8 @@ namespace Aiport_App_Structure.Models
         [Required]
         public int TotalTickets { get; set; }
 
+        public int SoldTickets { get; set; }
+
         [Required]
         public DateTime DepartureTime { get; set; }
 

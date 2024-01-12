@@ -67,7 +67,7 @@ namespace Airport_App_Core.Services
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
                     Id = x.Id,
-                    AvailableTickets = x.TotalTickets
+                    AvailableTickets = x.TotalTickets - x.SoldTickets
 
                 })
                 .ToListAsync();
@@ -88,7 +88,7 @@ namespace Airport_App_Core.Services
                     ArriveDate = f.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = f.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
                     Id = f.Id,
-                    AvailableTickets = f.TotalTickets
+                    AvailableTickets = f.TotalTickets - f.SoldTickets
 
                 })
                 .ToListAsync();
@@ -130,6 +130,25 @@ namespace Airport_App_Core.Services
             return true;
         }
 
+        public async Task<DisplayFlightRevenewModel> CheckRevenewForFlight(int id)
+        {
+            List<DisplayFlightRevenewModel> revenew = await data
+                .Flights
+                .Where(f => f.Id == id)
+                .Select(x => new DisplayFlightRevenewModel
+                {
+                    ArrivalCity = x.ArrivalAirport.City.Name,
+                    ArrivalAirport = x.ArrivalAirport.Name,
+                    DepartureAirport = x.DepartureAirport.Name,
+                    DepartureCity = x.DepartureAirport.City.Name,
+                    FlightNumber = x.FlightNumber,
+                    TotalTicketsSold = x.SoldTickets,
+                    Money = (x.SoldTickets * x.Price).ToString("0.00")
+                })
+                .ToListAsync();
+            return revenew[0];
+        }
+
         public async Task<List<DisplayFlightModel>> FilterByDepartureAirport(int airportId)
         {
             List<DisplayFlightModel> flights = await data
@@ -145,7 +164,7 @@ namespace Airport_App_Core.Services
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
                     Id = x.Id,
-                    AvailableTickets = x.TotalTickets
+                    AvailableTickets = x.TotalTickets - x.SoldTickets
 
                 })
                 .ToListAsync();
@@ -164,6 +183,11 @@ namespace Airport_App_Core.Services
             flight.Id = result.Id;
             flight.TotalTickets = result.TotalTickets;
             return flight;
+        }
+
+        public async Task<List<Flight>> GetAllFlights()
+        {
+            return await data.Flights.ToListAsync();
         }
 
         public async Task<Flight> GetFlight(int id)
@@ -217,7 +241,7 @@ namespace Airport_App_Core.Services
                     ArriveDate = x.ArivalTime.ToString("dd/MM/yyyy HH/mm"),
                     StartDate = x.DepartureTime.ToString("dd/MM/yyyy HH/mm"),
                     Id = x.Id,
-                    AvailableTickets = x.TotalTickets
+                    AvailableTickets = x.TotalTickets - x.SoldTickets
 
                 })
                 .ToListAsync();
@@ -239,7 +263,7 @@ namespace Airport_App_Core.Services
                     DestinationAirport = x.ArrivalAirport.Name,
                     DestinationCity = x.ArrivalAirport.City.Name,
                     Id = x.Id,
-                    AvailableTickets = x.TotalTickets
+                    AvailableTickets = x.TotalTickets - x.SoldTickets
                 })
                 .ToListAsync();
 

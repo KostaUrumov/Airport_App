@@ -20,7 +20,7 @@ namespace Airport_App_Core.Services
             Flight fli = await data
                 .Flights
                 .FirstAsync(f => f.Id == flightId);
-            fli.TotalTickets -= 1;
+            fli.SoldTickets += 1;
 
             Passenger findPassenger = await data
                 .Passengers
@@ -63,7 +63,7 @@ namespace Airport_App_Core.Services
             Flight fli = await data
                 .Flights
                 .FirstAsync(f => f.Id == flightId);
-            fli.TotalTickets -= 1;
+            fli.SoldTickets += 1;
 
             passenger.FlightsPassengers.Add(new FlightPassenger()
             {
