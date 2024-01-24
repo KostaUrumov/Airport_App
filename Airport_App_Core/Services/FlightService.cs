@@ -4,6 +4,7 @@ using Airport_App_Core.Models.FlightModels;
 using Airport_App_Core.Models.TicketModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Airport_App_Core.Services
 {
@@ -193,6 +194,37 @@ namespace Airport_App_Core.Services
         public async Task<Flight> GetFlight(int id)
         {
             return await data.Flights.FirstAsync(x => x.Id == id);
+        }
+
+        public List<BookFlightModel> MostBookedFlights()
+        {
+            
+
+            var flight = data
+                .FlightsPassengers
+                .ToList()
+                .GroupBy(x => x.FlightId)
+                .OrderByDescending(fp => fp.Count())
+                .Take(3)
+                .ToList();
+
+            int flightOne = flight[0].Key;
+            int flightTwo = flight[1].Key;
+            int flightThree = flight[2].Key;
+
+            List<BookFlightModel> toReturn = data
+                .Flights
+                .Where(x=> x.Id == flightOne || x.Id == flightTwo || x.Id == flightThree)
+                .Select (f=> new BookFlightModel()
+                {
+                    ArrivalCity = f.ArrivalAirport.City.Name,
+                    DepartureCity = f.DepartureAirport.City.Name,
+                    Price = ((double)(f.Price*f.TotalTickets))
+                })
+                .OrderByDescending(o=> o.Price)
+                .ToList();
+
+            return toReturn;
         }
 
         public async Task SaveChangesAsync(AddNewFlightModel addFlight)

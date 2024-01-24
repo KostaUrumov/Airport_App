@@ -34,5 +34,11 @@ namespace Airport_App.Areas.Manager.Controllers
             return View(model);
         }
 
+        public IActionResult MostFlights()
+        {
+            var flight = flightService.MostBookedFlights();
+            return View(flight);
+        }
+
     }
 }

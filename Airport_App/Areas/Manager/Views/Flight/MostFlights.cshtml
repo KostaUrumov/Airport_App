@@ -1,0 +1,41 @@
+﻿@model List<BookFlightModel>
+@{
+    ViewData["Title"] = "Result";
+}
+
+<div class="text-center">
+    <a class="" asp-area="Manager" asp-controller="Home" asp-action="Index">Manage home</a>
+    <h3>Revenew</h3>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Departure City</th>
+            <th scope="col">Arrival city</th>
+            <th scope="col">Total Income</th>
+        </tr>
+    </thead>
+
+  @for (int i = 0; i < Model.Count(); i++)
+    {
+        <tbody>
+            <tr>
+                <td>@Model[i].DepartureCity</td>
+                <td>@Model[i].ArrivalCity</td>
+                <td>@Model[i].Price $</td>
+            </tr>
+        </tbody>
+
+    }
+</table>
+
+
+
+
+
+
+
+
+
+

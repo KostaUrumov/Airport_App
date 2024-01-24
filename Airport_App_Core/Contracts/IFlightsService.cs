@@ -19,7 +19,7 @@ namespace Airport_App_Core.Contracts
         Task<Flight>GetFlight(int id);
         public bool CheckIfThereAreEnoughTickets(NumberTicketsModel numberPassengers);
         Task<List<Flight>> GetAllFlights();
-
         Task<DisplayFlightRevenewModel> CheckRevenewForFlight(int id);
+        public List<BookFlightModel> MostBookedFlights();
     }
 }
