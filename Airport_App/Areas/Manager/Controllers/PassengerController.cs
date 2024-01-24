@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Airport_App_Core.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Airport_App.Areas.Manager.Controllers
 {
     public class PassengerController : BaseController
     {
-        public IActionResult Index()
+        private readonly IPassengerService passengerService;
+
+        public PassengerController(IPassengerService _passService)
         {
-            return View();
+            passengerService = _passService;   
+        }
+        public IActionResult GetTheMostTravellingPassengerWithDestinations()
+        {
+            var result =  passengerService.GetTheMostTravelingPassengerWithDestinations();
+            return View(result);
         }
     }
 }

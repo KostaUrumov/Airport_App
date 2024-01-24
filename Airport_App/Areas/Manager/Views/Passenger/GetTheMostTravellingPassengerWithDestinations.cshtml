@@ -1,0 +1,64 @@
+﻿@model MostTravelledPassengerModel
+@{
+    ViewData["Title"] = "Result";
+}
+
+<div class="text-center">
+    <h3>Fligths</h3>
+</div>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+        </tr>
+    </thead>
+
+   
+
+    <tbody>
+        <tr>
+            
+            <td>@Model.FirstName</td>
+            <td>@Model.LastName</td>
+
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Departure City</th>
+                        <th scope="col">Arrival City</th>
+                    </tr>
+                </thead>
+                
+                @for (int j = 0; j < Model.Destinations.Count; j++)
+                {
+                    <tbody>
+                        <tr>
+                            
+                            <td>@Model.Destinations[j].DepartureCity</td>
+                            <td>@Model.Destinations[j].ArrivalCity</td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </tr>
+    </tbody>
+    }
+</table>
+
+
+
+
+
+
+
+
+
+
+

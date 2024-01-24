@@ -1,6 +1,7 @@
 ﻿using Aiport_App_Structure.Models;
 using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.TicketModels;
+using Airport_App_Core.Models.UserModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -91,6 +92,21 @@ namespace Airport_App_Core.Services
             }
 
             return newPassengers;
+        }
+
+        public MostTravelledPassengerModel GetTheMostTravelingPassengerWithDestinations()
+        {
+            List<MostTravelledPassengerModel> result = (List<MostTravelledPassengerModel>)data
+                .FlightsPassengers
+                .GroupBy(g=> g.Passenger)
+                .Select(s=> new MostTravelledPassengerModel()
+                {
+                    FirstName =x          })
+                .Take(1)
+                .Where()
+                
+
+            return result[0];
         }
 
         public bool IsPassengerAlreadyIn(Passenger passenger)

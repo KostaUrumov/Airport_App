@@ -1,5 +1,6 @@
 ﻿using Aiport_App_Structure.Models;
 using Airport_App_Core.Models.TicketModels;
+using Airport_App_Core.Models.UserModels;
 
 namespace Airport_App_Core.Contracts
 {
@@ -10,6 +11,7 @@ namespace Airport_App_Core.Contracts
         Task AddToFlight(Passenger passenger, int flightId);
         public bool CheckIfPassengerIsInThisFlight(Passenger passenger, int flightId);
         Task CreateAndSaveNewPassengers(Passenger passenger, int flightId);
+        MostTravelledPassengerModel GetTheMostTravelingPassengerWithDestinations();
 
     }
 }
