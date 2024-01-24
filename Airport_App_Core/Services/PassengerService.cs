@@ -4,6 +4,7 @@ using Airport_App_Core.Models.TicketModels;
 using Airport_App_Core.Models.UserModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 
 namespace Airport_App_Core.Services
 {
@@ -96,14 +97,33 @@ namespace Airport_App_Core.Services
 
         public MostTravelledPassengerModel GetTheMostTravelingPassengerWithDestinations()
         {
-            List<MostTravelledPassengerModel> result = (List<MostTravelledPassengerModel>)data
-                .FlightsPassengers
-                .GroupBy(g=> g.Passenger)
-                .Select(s=> new MostTravelledPassengerModel()
+            var passenger = data
+                 .FlightsPassengers
+                 .ToList()
+                 .GroupBy(x => x.PassengerId)
+                 .OrderByDescending(fr => fr.Count())
+                 .Take(1)
+                 .ToList();
+
+            int one = passenger[0].Key;
+
+            var result  =  data
+                .Passengers
+                .Where(p=> p.Id == one)
+                .Select(x=> new MostTravelledPassengerModel()
                 {
-                    FirstName =x          })
-                .Take(1)
-                .Where()
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Destinations = (List<DestinationModel>) x.FlightsPassengers.Where(f=> f.PassengerId == one)
+                    .Select (p=> new DestinationModel()
+                    {
+                        ArrivalCity = p.Flight.ArrivalAirport.City.Name,
+                        DepartureCity = p.Flight.DepartureAirport.City.Name
+                    })
+                    .OrderByDescending(f=> f.ArrivalCity)
+                    
+                })
+                .ToList();
                 
 
             return result[0];
