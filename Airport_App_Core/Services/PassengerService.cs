@@ -4,7 +4,6 @@ using Airport_App_Core.Models.TicketModels;
 using Airport_App_Core.Models.UserModels;
 using Airport_App_Structure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Immutable;
 
 namespace Airport_App_Core.Services
 {

@@ -3,6 +3,7 @@ using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.UserModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Airport_App.Controllers
 {
@@ -70,6 +71,14 @@ namespace Airport_App.Controllers
                 return RedirectToAction(nameof(Login));
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult ChangePass()
+        {
+            var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            ChangePasswordModel model = new ChangePasswordModel();
+            return View(model);
         }
 
     }
