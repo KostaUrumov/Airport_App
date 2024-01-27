@@ -12,5 +12,6 @@ namespace Airport_App_Core.Models.UserModels
         [DataType(DataType.Password)]
         public string RepeatNewPassword { get; set; } = null!;
 
+        public string? UserId { get; set; }
     }
 }

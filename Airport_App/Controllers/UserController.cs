@@ -12,7 +12,7 @@ namespace Airport_App.Controllers
         private readonly IUserService userService;
         private readonly SignInManager<User> signInManager;
 
-       
+
 
 
         public UserController(
@@ -66,7 +66,7 @@ namespace Airport_App.Controllers
             }
 
             var loggedIn = userService.LogInAsync(model);
-            if (loggedIn.Result == false) 
+            if (loggedIn.Result == false)
             {
                 return RedirectToAction(nameof(Login));
             }
@@ -76,9 +76,17 @@ namespace Airport_App.Controllers
         [HttpGet]
         public IActionResult ChangePass()
         {
-            var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             ChangePasswordModel model = new ChangePasswordModel();
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> ChangePass(ChangePasswordModel model)
+        {
+            var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            model.UserId = userId;
+            await userService.ChangePass(model);
+            return RedirectToAction("Index", "Home");
         }
 
     }

@@ -8,5 +8,6 @@ namespace Airport_App_Core.Contracts
         Task<User> RegisterNewUser(AddNewUserModel model);
         Task<bool> LogInAsync (LogInViewModel model);
         Task AddUserToRole(User user);
+        Task ChangePass(ChangePasswordModel model);
     }
 }

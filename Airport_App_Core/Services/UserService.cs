@@ -3,7 +3,6 @@ using Airport_App_Core.Contracts;
 using Airport_App_Core.Models.UserModels;
 using Airport_App_Structure.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 namespace Airport_App_Core.Services
@@ -43,6 +42,28 @@ namespace Airport_App_Core.Services
             }
 
             await data.SaveChangesAsync();
+        }
+
+        public async Task ChangePass(ChangePasswordModel model)
+        {
+            User user = data.Users
+                .First(x => x.Id == model.UserId);
+
+
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+            var pbkdf2 = new Rfc2898DeriveBytes(model.NewPassword, salt, 100000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+            string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
+            user.PasswordHash = savedPasswordHash;
+
+            await data.SaveChangesAsync();
+
         }
 
         public async Task<bool> LogInAsync(LogInViewModel model)
@@ -87,9 +108,6 @@ namespace Airport_App_Core.Services
             Array.Copy(salt, 0, hashBytes, 0, 16);
             Array.Copy(hash, 0, hashBytes, 16, 20);
             string savedPasswordHash = Convert.ToBase64String(hashBytes);
-
-
-
 
             User user = new User()
             {
